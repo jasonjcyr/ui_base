@@ -11,8 +11,7 @@
     "prettier:sass:check": "prettier --check \"**/*.scss\"",
     "prettier:sass:write": "prettier --write \"**/*.scss\"",
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
-    "build": "npm run prettier:ci && storybook build",
-    "prepare": "chmod +x .husky/pre-commit"
+    "build": "npm run prettier:ci && storybook build"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": "eslint --fix"
