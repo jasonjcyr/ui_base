@@ -14,7 +14,13 @@
     "build": "npm run prettier:ci && storybook build"
   },
   "lint-staged": {
-    "**/*.{js,ts,tsx}": "eslint --fix"
+    "**/*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{scss,css,json,md}": [
+      "prettier --write"
+    ]
   },
   "type": "module",
   "keywords": [],
