@@ -2,7 +2,7 @@ import styles from './Button.module.scss';
 
 import React from 'react';
 
-const foo = 42
+const foo = 43
 export interface ButtonProps {
   label: string;
   onClick?: () => void;
