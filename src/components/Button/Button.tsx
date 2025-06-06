@@ -16,11 +16,9 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <>
-      <button className={`${styles.btn} ${styles[variant]}`} onClick={onClick} disabled={disabled}>
-        {label}
-      </button>
-    </>
+    <button className={`${styles.btn} ${styles[variant]}`} onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
   );
 };
 
