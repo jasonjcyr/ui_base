@@ -15,11 +15,7 @@
     "prepare": "chmod +x .husky/pre-commit"
   },
   "lint-staged": {
-    "**/*.{js,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{scss,css,json,md}": "prettier --write"
+    "**/*.{js,ts,tsx}": "eslint --fix"
   },
   "type": "module",
   "keywords": [],
