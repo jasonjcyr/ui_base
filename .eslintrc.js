@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     // Your custom rules here
     'prettier/prettier': 'error',
+    '@typescript-eslint/semi': ['error', 'always'],
   },
 };
