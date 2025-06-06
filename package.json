@@ -11,7 +11,11 @@
     "prettier:sass:check": "prettier --check \"**/*.scss\"",
     "prettier:sass:write": "prettier --write \"**/*.scss\"",
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
-    "build": "npm run prettier:ci && storybook build"
+    "build": "npm run prettier:ci && storybook build",
+    "prepare": "chmod +x .husky/pre-commit"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx,scss,css,json,md}": "prettier --write"
   },
   "type": "module",
   "keywords": [],
@@ -30,6 +34,8 @@
     "@types/react": "^19.1.6",
     "@vitest/browser": "^3.2.2",
     "@vitest/coverage-v8": "^3.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
     "sass": "^1.89.1",
