@@ -16,7 +16,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --max-warnings=0 --format=stylish --fix",
+      "eslint --max-warnings=0 --no-warn-ignored --format=stylish --fix",
       "prettier --write"
     ],
     "*.{scss,css,json,md,yml,yaml}": [
