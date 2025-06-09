@@ -2,12 +2,13 @@
 const config = {
   stories: ['../stories/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    // "@storybook/addon-interactions",
-    // "@storybook/addon-onboarding",
-    // "@chromatic-com/storybook",
     '@storybook/addon-docs',
-    // "@storybook/addon-a11y",
-    // "@storybook/addon-vitest",
+    // '@storybook/addon-viewport',
+    // '@storybook/addon-designs',
+    // '@storybook/addon-a11y', // Optional
+    // '@storybook/addon-interactions',
+    // '@storybook/addon-onboarding',
+    // '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/nextjs-vite',
