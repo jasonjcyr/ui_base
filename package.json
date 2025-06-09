@@ -33,12 +33,17 @@
     "prettier:sass:check": "prettier --check \"**/*.scss\"",
     "prettier:sass:write": "prettier --write \"**/*.scss\"",
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
-    "build-storybook": "npm run prettier:ci && storybook build",
+    "lint": "eslint . --max-warnings=0 --format=stylish",
     "prepare": "chmod +x .husky/pre-commit",
-    "build": "vite build"
+    "build": "npm run prettier:ci && vite build"
   },
   "lint-staged": {
-    "**/*.{js,ts,tsx}": "eslint --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --max-warnings=0 --no-warn-ignored --format=stylish"
+    ],
+    "*.{scss,css,json,md,yml,yaml}": [
+      "prettier --check"
+    ]
   },
   "type": "module",
   "keywords": [],

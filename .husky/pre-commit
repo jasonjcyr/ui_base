@@ -1,4 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
+echo "🔍 Running lint-staged..."
+npx lint-staged || {
+  echo ""
+  echo "🛑 Commit failed: lint-staged rejected some changes."
+  echo "👉 Please review the output above and fix the reported issues."
+  exit 1
+}

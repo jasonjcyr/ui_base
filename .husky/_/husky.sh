@@ -1,5 +1,4 @@
 #!/bin/sh
-# Husky v9+ loader
 
 if [ -z "$husky_skip_init" ]; then
   readonly hook_name="$(basename "$0")"
