@@ -5,7 +5,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 
 export default [
   {
-    ignores: ['eslint.config.js'],
+    ignores: ['eslint.config.js', 'storybook-static/**', '.storybook/**', 'vitest.config.ts'],
   },
   {
     files: ['**/*.{ts,tsx,js,jsx}'],

@@ -11,14 +11,15 @@
     "prettier:sass:check": "prettier --check \"**/*.scss\"",
     "prettier:sass:write": "prettier --write \"**/*.scss\"",
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
+    "lint": "eslint . --max-warnings=0 --format=stylish",
     "build": "npm run prettier:ci && storybook build"
   },
   "lint-staged": {
-    "**/*.{js,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --max-warnings=0 --format=stylish --fix",
       "prettier --write"
     ],
-    "**/*.{scss,css,json,md}": [
+    "*.{scss,css,json,md,yml,yaml}": [
       "prettier --write"
     ]
   },
