@@ -7,14 +7,15 @@ import cssInjected from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 
+const isCI = process.env.CI === 'true';
+
 export default defineConfig({
   plugins: [
     react(),
-    // cssInjected(),
     dts({ insertTypesEntry: true }),
     externalizeDeps({ except: [] }),
-    visualizer({ open: false }),
-  ],
+    !isCI && visualizer({ open: false }),
+  ].filter(Boolean),
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
@@ -23,7 +24,6 @@ export default defineConfig({
       fileName: (format) => `my-ui-lib.${format}.js`,
     },
     rollupOptions: {
-      // external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
           react: 'React',
