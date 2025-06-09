@@ -2,7 +2,29 @@
   "name": "workspace",
   "version": "1.0.0",
   "description": "ui common library",
-  "main": "index.js",
+  "main": "dist/my-ui-lib.umd.js",
+  "module": "dist/my-ui-lib.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/my-ui-lib.es.js",
+      "require": "./dist/my-ui-lib.umd.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "storybook dev -p 6007 --no-open",
@@ -12,7 +34,8 @@
     "prettier:sass:write": "prettier --write \"**/*.scss\"",
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
     "lint": "eslint . --max-warnings=0 --format=stylish",
-    "build": "npm run prettier:ci && storybook build"
+    "prepare": "chmod +x .husky/pre-commit",
+    "build": "npm run prettier:ci && vite build"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -39,15 +62,20 @@
     "@types/react": "^19.1.6",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
+    "@vitejs/plugin-react": "^4.1.0",
     "@vitest/browser": "^3.2.2",
     "@vitest/coverage-v8": "^3.2.2",
+    "autoprefixer": "^10.4.17",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
     "playwright": "^1.52.0",
+    "postcss": "^8.4.24",
+    "postcss-import": "^15.1.0",
     "prettier": "^3.5.3",
+    "rollup-plugin-visualizer": "^6.0.1",
     "sass": "^1.89.1",
     "storybook": "^9.0.5",
     "stylelint": "^16.20.0",
@@ -55,6 +83,14 @@
     "stylelint-scss": "^6.12.0",
     "typed-scss-modules": "^8.1.1",
     "typescript": "^5.8.3",
+    "vite": "^5.2.0",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vite-plugin-dts": "^3.7.1",
+    "vite-plugin-externalize-deps": "^0.9.0",
     "vitest": "^3.2.2"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }
