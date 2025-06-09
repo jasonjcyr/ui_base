@@ -10,7 +10,16 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
+    "paths": {
+      "@/*": ["src/*"],
+      "@styles/*": ["styles/*"]
+    }
   },
-  "include": ["src", ".storybook"]
+  "include": ["src", ".storybook"],
+   "exclude": ["**/*.stories.tsx", "**/*.stories.ts"]
 }

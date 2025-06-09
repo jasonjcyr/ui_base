@@ -2,7 +2,6 @@ import styles from './Button.module.scss';
 
 import React from 'react';
 
-const foo = 42
 export interface ButtonProps {
   label: string;
   onClick?: () => void;
@@ -10,7 +9,7 @@ export interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
   variant = 'primary',
@@ -22,5 +21,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

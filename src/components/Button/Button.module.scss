@@ -1,4 +1,7 @@
+@use '../../styles' as styles;
+
 .btn {
+  @include styles.center;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border: none;
@@ -8,7 +11,7 @@
 }
 
 .primary {
-  background-color: #007bff;
+  background-color: styles.$color-primary;
   color: white;
 
   &:hover {
