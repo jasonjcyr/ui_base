@@ -15,7 +15,7 @@
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": [
-      "eslint --fix",
+      "eslint --max-warnings=0 --format=stylish --fix",
       "prettier --write"
     ],
     "**/*.{scss,css,json,md}": [
