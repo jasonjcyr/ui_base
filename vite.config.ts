@@ -6,7 +6,7 @@ import cssInjected from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 
-const isCI = process.env.CI === 'true';
+const isCI = false; // process.env.CI === 'true';
 
 let visualizer;
 try {
