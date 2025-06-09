@@ -16,11 +16,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --max-warnings=0 --no-warn-ignored --format=stylish --fix",
-      "prettier --write"
+      "eslint --max-warnings=0 --no-warn-ignored --format=stylish"
     ],
     "*.{scss,css,json,md,yml,yaml}": [
-      "prettier --write"
+      "prettier --check"
     ]
   },
   "type": "module",

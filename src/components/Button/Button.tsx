@@ -8,7 +8,7 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
 }
-const t = 10;
+
 const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
