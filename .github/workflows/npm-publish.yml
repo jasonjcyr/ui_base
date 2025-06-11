@@ -9,24 +9,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org/'
 
-      - name: Clean install dependencies
+      - name: Clean and Install Dependencies
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
           npm install
           npm rebuild
 
-      - name: Build package
+      - name: Build Package
         run: npm run build
 
       - name: Publish to npm
         run: npm publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_OPTIONAL: false
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

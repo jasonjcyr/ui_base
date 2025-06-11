@@ -1,5 +1,5 @@
 {
-  "name": "workspace",
+  "name": "talon-ui",
   "version": "1.0.0",
   "description": "ui common library",
   "main": "dist/my-ui-lib.umd.js",
