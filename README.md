@@ -10,7 +10,7 @@
 - ✅ Fully compatible with **Next.js App Directory**
 - ✅ Optimized for **React 19 server components** & `use` hook
 - ✅ **Tree-shakable**, **typed**, and **theming ready**
-- ✅ Zero-config styling via SCSS or Tailwind
+- ✅ Zero-config styling via SCSS
 - ✅ Works with **Storybook**, **Jest**, **Vite**, and **Playwright**
 
 ---
