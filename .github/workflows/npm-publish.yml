@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to fetch tags and branches for commit
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,6 +22,14 @@ jobs:
           scope: '@reactnextjsguru'
           always-auth: true
           token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get branch name
+        id: branch
+        run: |
+          # Extract branch from the GitHub event payload or guess from the release
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -v '\->' | head -n 1 | sed 's|origin/||')
+          echo "Branch is: $BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Bump minor version
         id: versioning
@@ -47,7 +57,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Debug .npmrc (optional, remove if not needed)
+      - name: Debug .npmrc (optional)
         run: cat .npmrc
 
       - name: Publish to npm
@@ -55,11 +65,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Commit bumped version (optional)
-        if: github.ref == 'refs/heads/main'
+      - name: Commit bumped version
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Make sure we're on the right branch
+          git fetch origin ${{ steps.branch.outputs.branch_name }}
+          git checkout ${{ steps.branch.outputs.branch_name }}
+          git pull origin ${{ steps.branch.outputs.branch_name }}
+
           git add package.json
-          git commit -m "ci: bump version to ${{ steps.versioning.outputs.version }}"
-          git push origin HEAD:main
+          git commit -m "ci: bump version to ${{ steps.versioning.outputs.version }}" || echo "No changes to commit"
+          git push origin ${{ steps.branch.outputs.branch_name }}
