@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org/'
+          scope: '@reactnextjsguru'
 
       - name: Bump minor version
         id: versioning
@@ -24,12 +25,10 @@ jobs:
           current=$(jq -r .version package.json)
           major=$(echo $current | cut -d. -f1)
           minor=$(echo $current | cut -d. -f2)
-          patch=$(echo $current | cut -d. -f3)
           new_version="${major}.$((minor + 1)).0"
 
           echo "New version: $new_version"
           jq --arg v "$new_version" '.version=$v' package.json > temp && mv temp package.json
-
           echo "version=$new_version" >> "$GITHUB_OUTPUT"
 
       - name: Clean and install dependencies
@@ -38,20 +37,27 @@ jobs:
           npm cache clean --force
           npm install
           npm rebuild
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ~/.npmrc
 
       - name: Build package
         run: npm run build
-
-      - name: Publish to npm
-        run: npm publish --access public --provenance false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ~/.npmrc
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ~/.npmrc
 
       - name: Commit bumped version (optional)
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json
           git commit -m "ci: bump version to ${{ steps.versioning.outputs.version }}"
           git push origin HEAD:main
-        if: github.ref == 'refs/heads/main'
