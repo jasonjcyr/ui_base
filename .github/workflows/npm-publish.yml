@@ -18,6 +18,8 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org/'
           scope: '@reactnextjsguru'
+          always-auth: true
+          token: ${{ secrets.NPM_TOKEN }}
 
       - name: Bump minor version
         id: versioning
@@ -39,19 +41,19 @@ jobs:
           npm rebuild
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_USERCONFIG: ~/.npmrc
 
       - name: Build package
         run: npm run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_USERCONFIG: ~/.npmrc
+
+      - name: Debug .npmrc (optional, remove if not needed)
+        run: cat .npmrc
 
       - name: Publish to npm
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_USERCONFIG: ~/.npmrc
 
       - name: Commit bumped version (optional)
         if: github.ref == 'refs/heads/main'
