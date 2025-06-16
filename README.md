@@ -1,6 +1,17 @@
-# @reactnextjsguru/talon-ui
+<p align="center">
+  <img src="https://www.talonui.com/talon-ui.png" width="120" alt="Talon UI Logo" />
+</p>
 
-> A collection of fully SSR-ready compound React components designed for Next.js 14+ and React 19. Built with accessibility and composability in mind.
+<h1 align="center">@reactnextjsguru/talon-ui</h1>
+
+<p align="center">
+  A collection of fully SSR-ready compound React components designed for Next.js 14+ and React 19.<br />
+  Built with accessibility and composability in mind.
+</p>
+
+<p align="center">
+  <a href="https://talonui.com" target="_blank"><strong>🌐 Demo Site →</strong></a>
+</p>
 
 ---
 
