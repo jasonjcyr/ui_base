@@ -35,7 +35,8 @@
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
     "lint": "eslint . --max-warnings=0 --format=stylish",
     "prepare": "chmod +x .husky/pre-commit",
-    "build": "npm run prettier:ci && vite build"
+    "build": "npm run prettier:ci && vite build",
+    "build-storybook": "storybook build -o storybook-static"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
