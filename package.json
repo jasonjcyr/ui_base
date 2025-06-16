@@ -60,6 +60,7 @@
     "@storybook/addon-docs": "^9.0.9",
     "@storybook/addon-onboarding": "^9.0.9",
     "@storybook/addon-vitest": "^9.0.9",
+    "@storybook/addons": "^7.6.17",
     "@storybook/nextjs": "^9.0.9",
     "@storybook/nextjs-vite": "^9.0.9",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
