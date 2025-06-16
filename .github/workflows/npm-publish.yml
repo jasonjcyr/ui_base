@@ -1,3 +1,5 @@
+name: Publish to npm
+
 on:
   release:
     types: [published]
@@ -5,27 +7,78 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to fetch tags and branches for commit
+          persist-credentials: false # Important so we can override credentials later
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org/'
+          scope: '@reactnextjsguru'
+          always-auth: true
+          token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Clean and Install Dependencies
+      - name: Get branch name
+        id: branch
+        run: |
+          # Extract branch from the GitHub event payload or guess from the release
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep -v '\->' | head -n 1 | sed 's|origin/||')
+          echo "Branch is: $BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Bump minor version
+        id: versioning
+        run: |
+          current=$(jq -r .version package.json)
+          major=$(echo $current | cut -d. -f1)
+          minor=$(echo $current | cut -d. -f2)
+          new_version="${major}.$((minor + 1)).0"
+
+          echo "New version: $new_version"
+          jq --arg v "$new_version" '.version=$v' package.json > temp && mv temp package.json
+          echo "version=$new_version" >> "$GITHUB_OUTPUT"
+
+      - name: Clean and install dependencies
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
           npm install
           npm rebuild
-
-      - name: Build Package
-        run: npm run build
-
-      - name: Publish to npm
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build package
+        run: npm run build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Debug .npmrc (optional)
+        run: cat .npmrc
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit bumped version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Make sure we're on the right branch
+          git fetch origin ${{ steps.branch.outputs.branch_name }}
+          git checkout ${{ steps.branch.outputs.branch_name }}
+          git pull origin ${{ steps.branch.outputs.branch_name }}
+
+          git add package.json
+          git commit -m "ci: bump version to ${{ steps.versioning.outputs.version }}" || echo "No changes to commit"
+
+          # Use PAT to push the commit
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
+          git push origin ${{ steps.branch.outputs.branch_name }}

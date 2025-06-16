@@ -1,6 +1,6 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "ui common library",
   "main": "dist/my-ui-lib.umd.js",
   "module": "dist/my-ui-lib.es.js",
@@ -36,7 +36,8 @@
     "lint": "eslint . --max-warnings=0 --format=stylish",
     "prepare": "chmod +x .husky/pre-commit",
     "build-dev": " ANALYZE=true vite build",
-    "build": "npm run prettier:ci && vite build"
+    "build": "npm run prettier:ci && vite build",
+    "build-storybook": "storybook build -o storybook-static"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -55,13 +56,14 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
-    "@storybook/addon-a11y": "^9.0.5",
+    "@storybook/addon-a11y": "^9.0.9",
     "@storybook/addon-designs": "^10.0.1",
-    "@storybook/addon-docs": "^9.0.5",
-    "@storybook/addon-onboarding": "^9.0.5",
-    "@storybook/addon-vitest": "^9.0.5",
-    "@storybook/nextjs": "^9.0.5",
-    "@storybook/nextjs-vite": "^9.0.5",
+    "@storybook/addon-docs": "^9.0.9",
+    "@storybook/addon-onboarding": "^9.0.9",
+    "@storybook/addon-vitest": "^9.0.9",
+    "@storybook/addons": "^7.6.17",
+    "@storybook/nextjs": "^9.0.9",
+    "@storybook/nextjs-vite": "^9.0.9",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",
@@ -84,7 +86,7 @@
     "prettier": "^3.5.3",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.89.1",
-    "storybook": "^9.0.5",
+    "storybook": "^9.0.9",
     "stylelint": "^16.20.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-scss": "^6.12.0",
@@ -92,7 +94,7 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-css-injected-by-js": "^3.5.2",
-    "vite-plugin-dts": "^3.7.1",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-externalize-deps": "^0.9.0",
     "vitest": "^3.2.2"
   },

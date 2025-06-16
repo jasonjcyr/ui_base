@@ -1,0 +1,14 @@
+// .storybook/manager.ts
+import { addons } from '@storybook/addons';
+import { create } from '@storybook/theming/create';
+
+const theme = create({
+  base: 'light', // or 'dark'
+  brandTitle: 'Talon UI',
+  brandUrl: 'https://talonui.com',
+  brandImage: '/talon-ui.png', // relative to /public
+});
+
+addons.setConfig({
+  theme,
+});
