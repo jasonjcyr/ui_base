@@ -74,7 +74,7 @@ export const Default: Story = {};
   fs.writeFileSync(path.join(targetDir, `${componentName}.tsx`), tsx);
   fs.writeFileSync(path.join(targetDir, `${componentName}.module.scss`), scss);
   fs.writeFileSync(path.join(targetDir, `index.ts`), index);
-  fs.writeFileSync(path.join(targetDir, `${componentName}.stories.ts`), storybook);
+  fs.writeFileSync(path.join(targetDir, `${componentName}.stories.tsx`), storybook);
 
   console.log(`✅ Component "${componentName}" created at src/components/${componentName}`);
 

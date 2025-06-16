@@ -1,0 +1,16 @@
+@use './variables' as *;
+@use 'sass:map';
+
+@mixin responsive-font($key, $scale-md: 1.1, $scale-lg: 1.25) {
+  $base-size: map.get($font-sizes, $key);
+
+  font-size: $base-size;
+
+  @media (min-width: map.get($breakpoints, md)) {
+    font-size: calc(#{$base-size} * #{$scale-md});
+  }
+
+  @media (min-width: map.get($breakpoints, lg)) {
+    font-size: calc(#{$base-size} * #{$scale-lg});
+  }
+}

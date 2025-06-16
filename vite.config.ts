@@ -1,10 +1,13 @@
 import react from '@vitejs/plugin-react';
 
 import path from 'node:path';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import cssInjected from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
+
+const isAnalyze = process.env.ANALYZE === 'true';
 
 export default defineConfig({
   plugins: [
@@ -12,6 +15,7 @@ export default defineConfig({
     dts({ insertTypesEntry: true }),
     externalizeDeps({ except: [] }),
     cssInjected(),
+    ...(isAnalyze ? [visualizer({ open: false, filename: './stats.html', gzipSize: true })] : []),
   ],
   build: {
     lib: {
@@ -25,6 +29,8 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'jsxRuntime',
+          clsx: 'clsx',
         },
       },
     },

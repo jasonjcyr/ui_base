@@ -1,0 +1,30 @@
+@use '../../styles/typography/mixins' as mixins;
+@use '../../styles/typography/variables' as *;
+
+.typography-h1 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  @include mixins.responsive-font('4xl');
+}
+
+.typography-h2 {
+  font-family: $font-primary;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  @include mixins.responsive-font('3xl');
+}
+
+.typography-body {
+  font-family: $font-secondary;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  @include mixins.responsive-font('md');
+}
+
+.typography-caption {
+  font-family: $font-secondary;
+  font-weight: $font-weight-light;
+  line-height: $line-height-relaxed;
+  @include mixins.responsive-font('xs');
+}
