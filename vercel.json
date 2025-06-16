@@ -1,5 +1,8 @@
 {
   "buildCommand": "npm run build-storybook",
   "outputDirectory": "storybook-static",
-  "framework": "other"
+  "framework": "other",
+  "env": {
+    "STORYBOOK_ENV": "production"
+  }
 }
