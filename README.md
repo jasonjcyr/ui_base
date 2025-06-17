@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.talonui.com/.storybook/public/talon-ui.webp"" width="120" alt="Talon UI Logo" />
+  <img src="https://www.talonui.com/talon-ui.webp"" width="120" alt="Talon UI Logo" />
 </p>
 
 <h1 align="center">@reactnextjsguru/talon-ui</h1>
