@@ -1,16 +1,48 @@
 @use './variables' as *;
 @use 'sass:map';
 
-@mixin responsive-font($key, $scale-md: 1.1, $scale-lg: 1.25) {
-  $base-size: map.get($font-sizes, $key);
+// Define breakpoint values for media queries
+$breakpoint-values: (
+  sm: 600px,
+  md: 900px,
+  lg: 1200px,
+  xl: 1536px,
+);
 
-  font-size: $base-size;
+// Responsive media query mixin
+@mixin respond-to($breakpoint) {
+  $value: map.get($breakpoint-values, $breakpoint);
 
-  @media (min-width: map.get($breakpoints, md)) {
-    font-size: calc(#{$base-size} * #{$scale-md});
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// Typography variant mixin
+@mixin typography-variant($font-size-map, $line-height-map, $font-weight, $breakpoints) {
+  font-weight: $font-weight;
+
+  // Apply base (xs) styles without media query
+  $base-font-size: map.get($font-size-map, xs);
+  $base-line-height: map.get($line-height-map, xs);
+
+  @if $base-font-size and $base-line-height {
+    font-size: $base-font-size;
+    line-height: $base-line-height;
   }
 
-  @media (min-width: map.get($breakpoints, lg)) {
-    font-size: calc(#{$base-size} * #{$scale-lg});
+  // Loop through other breakpoints and apply overrides
+  @each $breakpoint in (sm, md, lg, xl) {
+    $font-size: map.get($font-size-map, $breakpoint);
+    $line-height: map.get($line-height-map, $breakpoint);
+
+    @if $font-size and $line-height {
+      @include respond-to($breakpoint) {
+        font-size: $font-size;
+        line-height: $line-height;
+      }
+    }
   }
 }

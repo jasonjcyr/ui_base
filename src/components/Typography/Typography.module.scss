@@ -1,30 +1,45 @@
-@use '../../styles/typography/mixins' as mixins;
+@use '../../styles/typography/mixins' as *;
 @use '../../styles/typography/variables' as *;
 
-.typography-h1 {
-  font-family: $font-primary;
-  font-weight: $font-weight-bold;
-  line-height: $line-height-tight;
-  @include mixins.responsive-font('4xl');
-}
+.typography {
+  &-h1 {
+    @include typography-variant($font-h1, $line-h1, $weight-bold, $breakpoints);
+  }
 
-.typography-h2 {
-  font-family: $font-primary;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-snug;
-  @include mixins.responsive-font('3xl');
-}
+  &-h2 {
+    @include typography-variant($font-h2, $line-h2, $weight-bold, $breakpoints);
+  }
 
-.typography-body {
-  font-family: $font-secondary;
-  font-weight: $font-weight-normal;
-  line-height: $line-height-normal;
-  @include mixins.responsive-font('md');
-}
+  &-h3 {
+    @include typography-variant($font-h3, $line-h3, $weight-semibold, $breakpoints);
+  }
 
-.typography-caption {
-  font-family: $font-secondary;
-  font-weight: $font-weight-light;
-  line-height: $line-height-relaxed;
-  @include mixins.responsive-font('xs');
+  &-h4 {
+    @include typography-variant($font-h4, $line-h4, $weight-medium, $breakpoints);
+  }
+
+  &-h5 {
+    @include typography-variant($font-h5, $line-h5, $weight-medium, $breakpoints);
+  }
+
+  &-h6 {
+    @include typography-variant($font-h6, $line-h6, $weight-regular, $breakpoints);
+  }
+
+  &-body {
+    @include typography-variant($font-body, $line-body, $weight-regular, $breakpoints);
+  }
+
+  &-lead {
+    @include typography-variant($font-lead, $line-lead, $weight-medium, $breakpoints);
+  }
+
+  &-caption {
+    @include typography-variant($font-caption, $line-caption, $weight-regular, $breakpoints);
+  }
+
+  &-overline {
+    text-transform: uppercase;
+    @include typography-variant($font-overline, $line-overline, $weight-bold, $breakpoints);
+  }
 }
