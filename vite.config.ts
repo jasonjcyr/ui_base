@@ -1,6 +1,8 @@
+import pkg from './package.json' with { type: 'json' };
 import react from '@vitejs/plugin-react';
 
 import path from 'node:path';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import cssInjected from 'vite-plugin-css-injected-by-js';
@@ -33,7 +35,33 @@ export default defineConfig({
           clsx: 'clsx',
         },
       },
+      plugins: [
+        generatePackageJson({
+          baseContents: () => ({
+            name: pkg.name,
+            version: pkg.version,
+            main: 'my-ui-lib.umd.js',
+            module: 'my-ui-lib.es.js',
+            types: 'index.d.ts',
+            exports: {
+              '.': {
+                import: './my-ui-lib.es.js',
+                require: './my-ui-lib.umd.js',
+              },
+            },
+            sideEffects: ['*.css', '*.scss'],
+            peerDependencies: {
+              react: '^18.0.0',
+              'react-dom': '^18.0.0',
+            },
+            license: pkg.license,
+            publishConfig: pkg.publishConfig,
+          }),
+        }),
+      ],
     },
+    outDir: 'dist',
+    emptyOutDir: true,
   },
   css: {
     modules: {
