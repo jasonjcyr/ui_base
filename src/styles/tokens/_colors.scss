@@ -1,22 +1,25 @@
+// Base Colors
 $color-primary: #3b82f6;
 $color-secondary: #6366f1;
 $color-neutral: #6b7280;
+$color-success: #10b981;
+$color-warning: #f59e0b;
+$color-danger: #ef4444;
+$color-info: #0ea5e9;
 
 $color-background: #ffffff;
 $color-surface: #f9fafb;
 $color-border: #e5e7eb;
 $color-text: #111827;
 
-$color-success: #10b981;
-$color-warning: #f59e0b;
-$color-danger: #ef4444;
-$color-info: #0ea5e9;
+$color-dark-background: #111827;
+$color-dark-surface: #1f2937;
+$color-dark-border: #374151;
+$color-dark-text: #f3f4f6;
+$color-dark-primary: #60a5fa;
+$color-dark-primary-hover: #93c5fd;
 
-$dark-color-background: #111827;
-$dark-color-surface: #1f2937;
-$dark-color-border: #374151;
-$dark-color-text: #f3f4f6;
-
+// Extra palette (non-theme specific)
 $color-blue-crayola: #2563eb;
 $color-mauve: #a78bfa;
 $color-aqua-breeze: #5eead4;
@@ -24,6 +27,7 @@ $color-rose-pink: #f472b6;
 $color-slate-gray: #94a3b8;
 $color-warm-gray: #d1d5db;
 
+// Combined color map if needed elsewhere
 $colors: (
   'primary': $color-primary,
   'secondary': $color-secondary,
@@ -36,14 +40,35 @@ $colors: (
   'warning': $color-warning,
   'danger': $color-danger,
   'info': $color-info,
-  'dark-background': $dark-color-background,
-  'dark-surface': $dark-color-surface,
-  'dark-border': $dark-color-border,
-  'dark-text': $dark-color-text,
   'blue-crayola': $color-blue-crayola,
   'mauve': $color-mauve,
   'aqua-breeze': $color-aqua-breeze,
   'rose-pink': $color-rose-pink,
   'slate-gray': $color-slate-gray,
   'warm-gray': $color-warm-gray,
+);
+
+// Theme maps for light and dark mode
+$light-theme: (
+  background: $color-background,
+  surface: $color-surface,
+  border: $color-border,
+  text: $color-text,
+  primary: $color-primary,
+  primary-hover: $color-blue-crayola,
+  success: $color-success,
+  secondary: $color-secondary,
+  danger: $color-danger,
+);
+
+$dark-theme: (
+  background: $color-dark-background,
+  surface: $color-dark-surface,
+  border: $color-dark-border,
+  text: $color-dark-text,
+  primary: $color-dark-primary,
+  primary-hover: $color-dark-primary-hover,
+  success: #34d399,
+  secondary: #9ca3af,
+  danger: #f87171,
 );
