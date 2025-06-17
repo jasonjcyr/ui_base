@@ -6,7 +6,8 @@
   "module": "dist/my-ui-lib.es.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "sideEffects": [
     "*.css",
