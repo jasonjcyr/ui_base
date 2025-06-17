@@ -6,7 +6,7 @@ const theme = create({
   base: 'light', // or 'dark'
   brandTitle: 'Talon UI',
   brandUrl: 'https://talonui.com',
-  brandImage: '/.storybook/public/talon-ui.png',
+  brandImage: '/talon-ui.png',
 });
 
 addons.setConfig({
