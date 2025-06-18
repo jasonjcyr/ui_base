@@ -1,38 +1,55 @@
+import { dark, light } from './themes';
 import type { Preview } from '@storybook/react';
+
+import { useDarkMode } from 'storybook-dark-mode';
 
 import '../src/styles/global.scss';
 
+const themeColors = {
+  light: '#ffffff',
+  dark: '#222425',
+} as const;
+
 const preview: Preview = {
   parameters: {
+    darkMode: {
+      light,
+      dark,
+      classTarget: 'html',
+      lightClass: 'light',
+      darkClass: 'dark',
+      stylePreview: true,
+    },
     backgrounds: {
       default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#111827' },
-      ],
+      values: Object.entries(themeColors).map(([name, value]) => ({
+        name,
+        value,
+      })),
     },
-  },
-  globalTypes: {
-    theme: {
-      name: 'Theme',
-      description: 'Global theme',
-      defaultValue: 'light',
-      toolbar: {
-        icon: 'mirror',
-        items: ['light', 'dark'],
-      },
+    docs: {
+      theme: light,
     },
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme;
-
-      // Set data-theme attribute or class
+      const isDark = useDarkMode();
+      const theme = isDark ? 'dark' : 'light';
+      const backgroundValue = themeColors[theme];
       document.documentElement.setAttribute('data-theme', theme);
-
-      // Set canvas background dynamically
-      const backgroundValue = theme === 'dark' ? '#111827' : '#ffffff';
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme);
       document.body.style.backgroundColor = backgroundValue;
+
+      const docsTheme = {
+        ...(isDark ? dark : light),
+        appBg: backgroundValue,
+      };
+
+      context.parameters.docs = {
+        ...(context.parameters.docs || {}),
+        theme: docsTheme,
+      };
 
       return Story();
     },
