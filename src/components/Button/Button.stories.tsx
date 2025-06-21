@@ -1,74 +1,82 @@
 import { Button } from './Button';
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { ArrowLeft, Loader2 } from 'lucide-react';
+
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: `
-### Design Reference
-
-[Figma Button UI Design System ↗](https://www.figma.com/community/file/769870685529936013/button-ui-design-system)
-
-⚠️ Figma embedding is restricted in some environments (like VS Code Webview). Open it in a new tab to view.
-        `,
-      },
-    },
-    viewport: {
-      viewports: {
-        mobile: {
-          name: 'Mobile',
-          styles: {
-            width: '375px',
-            height: '667px',
-          },
-          type: 'mobile',
-        },
-        tablet: {
-          name: 'Tablet',
-          styles: {
-            width: '768px',
-            height: '1024px',
-          },
-          type: 'tablet',
-        },
-      },
-      defaultViewport: 'mobile',
-    },
-  },
   argTypes: {
-    onClick: { action: 'clicked' },
     variant: {
-      control: 'radio',
-      options: ['primary', 'secondary'],
+      control: 'select',
+      options: ['primary', 'secondary', 'ghost', 'danger'],
     },
+    size: {
+      control: 'select',
+      options: ['xl', 'lg', 'md', 'sm'],
+    },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    fullWidth: { control: 'boolean' },
+    iconOnly: { control: 'boolean' },
+  },
+  args: {
+    variant: 'primary',
+    size: 'md',
+    disabled: false,
+    loading: false,
+    fullWidth: false,
+    iconOnly: false,
+    children: 'Click Me',
   },
 };
-
 export default meta;
+
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {
+export const Default: Story = {};
+
+export const WithIcon: Story = {
   args: {
-    label: 'Primary Button',
-    variant: 'primary',
+    children: (
+      <>
+        <Button.Icon>
+          <ArrowLeft />
+        </Button.Icon>
+        Back
+      </>
+    ),
   },
 };
 
-export const Secondary: Story = {
+export const IconOnly: Story = {
   args: {
-    label: 'Secondary Button',
-    variant: 'secondary',
+    iconOnly: true,
+    children: (
+      <Button.Icon>
+        <ArrowLeft />
+      </Button.Icon>
+    ),
+    'aria-label': 'Back',
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    children: 'Loading...',
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    fullWidth: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled Button',
-    variant: 'primary',
     disabled: true,
   },
 };

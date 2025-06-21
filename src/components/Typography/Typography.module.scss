@@ -1,5 +1,5 @@
-@use '../../styles/typography/mixins' as *;
-@use '../../styles/typography/variables' as *;
+@use '../../styles/mixins/mixins' as *;
+@use '../../styles/tokens/typography' as *;
 
 .typography {
   &-h1 {
