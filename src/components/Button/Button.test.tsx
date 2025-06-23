@@ -28,6 +28,7 @@ describe('<Button />', () => {
     );
 
     expect(screen.getByTestId('button-loading')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toBeDisabled();
+    const button = screen.getByTestId('button-loading');
+    expect(button).toBeDisabled();
   });
 });
