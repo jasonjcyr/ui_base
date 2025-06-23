@@ -19,7 +19,7 @@
       "@/*": ["src/*"],
       "@styles/*": ["styles/*"]
     },
-    "types": ["jest", "@testing-library/jest-dom", "node"]
+    "types": ["jest", "@testing-library/jest-dom", "node", "react", "react-dom"]
   },
   "include": ["src", ".storybook"],
   "exclude": ["**/*.stories.tsx", "**/*.stories.ts"]
