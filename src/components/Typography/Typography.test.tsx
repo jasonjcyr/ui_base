@@ -2,8 +2,6 @@ import { Typography } from './Typography';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 
-// ✅ Standard tests:
-
 describe('<Typography />', () => {
   it('renders default as <p> with default variant and testMetaData', () => {
     render(
@@ -50,8 +48,6 @@ describe('<Typography />', () => {
     expect(element).toHaveClass('custom-class');
   });
 });
-
-// ✅ Extra test to cover the missing variantClass warning
 
 jest.mock('./Typography.module.scss', () => ({
   default: {},
