@@ -6,6 +6,7 @@ import React, { ReactNode, forwardRef } from 'react';
 
 import clsx from 'clsx';
 
+import { Typography } from '@/components/Typography';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools';
 
@@ -74,7 +75,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (spinner ?? <DefaultSpinner testMetaData={testMetaData} />) : icon}
-        {children}
+
+        {!iconOnly && (
+          <Typography variant="body" testMetaData={appendTestMetaData(testMetaData, 'Text')}>
+            {children}
+          </Typography>
+        )}
       </button>
     );
   },
