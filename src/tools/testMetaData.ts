@@ -2,7 +2,7 @@ import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 
 const TEST_META_KEYS: Array<keyof TestMetaData> = ['data-testid', 'data-uitest'];
 
-export function enableTestMetaData(
+export function appendTestMetaData(
   testMetaData?: TestMetaData,
   localString?: string,
   delimiter: string = '-',
