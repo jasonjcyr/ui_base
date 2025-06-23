@@ -1,17 +1,23 @@
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 
-export const enableTestMetaData = (
+const TEST_META_KEYS: Array<keyof TestMetaData> = ['data-testid', 'data-uitest'];
+
+export function enableTestMetaData(
   testMetaData?: TestMetaData,
   localString?: string,
-): TestMetaData | undefined => {
+  delimiter: string = '-',
+): TestMetaData | undefined {
   if (!testMetaData) return undefined;
-  const appendedMetaData: TestMetaData = { ...testMetaData };
-  if (testMetaData['data-testid']) {
-    appendedMetaData['data-testid'] = `${testMetaData['data-testid']}${localString}`;
-  }
-  if (testMetaData['data-uitest']) {
-    appendedMetaData['data-uitest'] = `${testMetaData['data-uitest']}${localString}`;
+  if (!localString) return { ...testMetaData };
+
+  const appendedMetaData: TestMetaData = {};
+
+  for (const key of TEST_META_KEYS) {
+    const baseValue = testMetaData[key];
+    if (baseValue) {
+      appendedMetaData[key] = `${baseValue}${delimiter}${localString}`;
+    }
   }
 
   return appendedMetaData;
-};
+}
