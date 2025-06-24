@@ -2,7 +2,7 @@
 
 import styles from './Button.module.scss';
 
-import React, { ReactNode, forwardRef } from 'react';
+import { ReactNode, forwardRef } from 'react';
 
 import clsx from 'clsx';
 
@@ -22,13 +22,14 @@ type ButtonProps = {
   loading?: boolean;
   fullWidth?: boolean;
   iconOnly?: boolean;
+  destructive?: boolean;
   testMetaData?: TestMetaData;
   icon?: ReactNode;
   spinner?: ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 // Default Spinner Component
-const DefaultSpinner: React.FC<{ testMetaData?: TestMetaData }> = ({ testMetaData }) => {
+const DefaultSpinner = ({ testMetaData }: { testMetaData?: TestMetaData }) => {
   const meta = appendTestMetaData(testMetaData, 'Spinner');
   return <span className={clsx(styles.spinner)} {...meta} />;
 };
@@ -43,6 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loading = false,
       fullWidth = false,
       iconOnly = false,
+      destructive = false, // ✅ YOU WERE MISSING THIS
       testMetaData,
       icon,
       spinner,
@@ -58,6 +60,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       styles[variant],
       styles[size],
       {
+        [styles.destructive]: destructive,
         [styles.disabled]: isDisabled,
         [styles['full-width']]: fullWidth,
         [styles['icon-only']]: iconOnly,

@@ -35,7 +35,6 @@ Use buttons when users need to either navigate through a product or perform a sp
 - Keep labels to max 3 words.
 - Only capitalize first word and proper nouns.
 - Acceptable exceptions: "Save", "Cancel", "Close".
-
 `,
       },
     },
@@ -77,16 +76,16 @@ Use buttons when users need to either navigate through a product or perform a sp
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+// Default story
 export const Default: Story = {
   parameters: {
     docs: {
-      source: {
-        code: `<Button>Say hello</Button>`,
-      },
+      source: { code: `<Button>Say hello</Button>` },
     },
   },
 };
 
+// Variants story (all variants side by side)
 export const Variants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -105,56 +104,36 @@ export const Variants: Story = {
 - **Primary** — Most important action.
 - **Secondary** — Complementary actions.
 - **Ghost** — Minimal alternative.
-- **Danger** — Destructive actions.
+- **Danger** — Destructive variant.
         `,
-      },
-      source: {
-        code: `
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="danger">Danger</Button>
-        `.trim(),
       },
     },
   },
 };
 
-export const Sizes: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-      <Button size="xl">Extra Large</Button>
-    </div>
-  ),
+// ✅ ✅ ✅ New Danger story
+export const Danger: Story = {
+  args: {
+    variant: 'danger',
+    children: 'Danger Button',
+  },
   parameters: {
     docs: {
       description: {
         story: `
-### Sizes
+### Danger Variant
 
-The button component supports 4 sizes:
-
-- **Extra Large (xl)** — for hero calls to action.
-- **Large (lg)** — for higher emphasis.
-- **Medium (md)** — default, used for most cases.
-- **Small (sm)** — use when space is limited or for less important actions.
+Use the danger variant for irreversible or dangerous actions.
         `,
       },
       source: {
-        code: `
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="xl">Extra Large</Button>
-        `.trim(),
+        code: `<Button variant="danger">Danger Button</Button>`,
       },
     },
   },
 };
 
+// Destructive story (boolean prop)
 export const Destructive: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -170,101 +149,64 @@ export const Destructive: Story = {
     docs: {
       description: {
         story: `
-### Destructive variant
+### Destructive Prop
 
-Used for irreversible or dangerous actions.
+Use \`destructive=true\` for irreversible actions, applied on top of variants.
         `,
-      },
-      source: {
-        code: `
-<Button variant="primary" destructive>Delete</Button>
-<Button variant="secondary" destructive>Remove</Button>
-        `.trim(),
       },
     },
   },
 };
 
-// With icons
+// Sizes
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+      <Button size="xl">Extra Large</Button>
+    </div>
+  ),
+};
+
+// WithIcon
 export const WithIcon: Story = {
   args: {
     icon: <ArrowLeft />,
     children: 'Back',
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `
-import { ArrowLeft } from 'lucide-react';
-
-<Button icon={<ArrowLeft />}>Back</Button>
-        `.trim(),
-      },
-    },
-  },
 };
 
-// Icon only button
+// IconOnly
 export const IconOnly: Story = {
   args: {
     iconOnly: true,
     icon: <ArrowLeft />,
     'aria-label': 'Back',
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `
-import { ArrowLeft } from 'lucide-react';
-
-<Button iconOnly aria-label="Back" icon={<ArrowLeft />} />
-        `.trim(),
-      },
-    },
-  },
 };
 
-// Loading state
+// Loading
 export const Loading: Story = {
   args: {
     loading: true,
     children: 'Loading...',
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `<Button loading>Loading...</Button>`,
-      },
-    },
-  },
 };
 
-// Full width button
+// FullWidth
 export const FullWidth: Story = {
   args: {
     fullWidth: true,
     children: 'Full Width Button',
   },
-  parameters: {
-    docs: {
-      source: {
-        code: `<Button fullWidth>Full Width Button</Button>`,
-      },
-    },
-  },
 };
 
-// Disabled button
+// Disabled
 export const Disabled: Story = {
   args: {
     disabled: true,
     children: 'Disabled Button',
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<Button disabled>Disabled Button</Button>`,
-      },
-    },
   },
 };

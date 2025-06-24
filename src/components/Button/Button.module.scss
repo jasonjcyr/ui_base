@@ -3,28 +3,39 @@
 .button {
   @include button-base;
 }
+
 .primary {
   @include button-variant('primary');
 }
+
 .secondary {
   @include button-variant('secondary');
 }
+
 .danger {
   @include button-variant('danger');
 }
+
 .ghost {
   @include button-variant('ghost');
+}
+
+.destructive {
+  @include button-variant('destructive');
 }
 
 .sm {
   @include button-size(sm);
 }
+
 .md {
   @include button-size(md);
 }
+
 .lg {
   @include button-size(lg);
 }
+
 .xl {
   @include button-size(xl);
 }
@@ -32,6 +43,7 @@
 .full-width {
   @include button-full-width;
 }
+
 .icon-only {
   @include button-icon-only;
 }
@@ -39,6 +51,7 @@
 .icon {
   @include flexbox($align-items: center, $justify-content: center);
 }
+
 .spinner {
   margin-right: 0.5rem;
   width: 1rem;
