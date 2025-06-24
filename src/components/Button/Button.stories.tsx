@@ -1,11 +1,8 @@
 import { Button } from './Button';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import React from 'react';
-
 import { ArrowLeft } from 'lucide-react';
 
-// Full Storybook Metadata
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
@@ -80,7 +77,6 @@ Use buttons when users need to either navigate through a product or perform a sp
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-// Default button
 export const Default: Story = {
   parameters: {
     docs: {
@@ -91,7 +87,6 @@ export const Default: Story = {
   },
 };
 
-// Variants section
 export const Variants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -125,7 +120,6 @@ export const Variants: Story = {
   },
 };
 
-// Sizes section (now updated with your actual sizes)
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -161,7 +155,6 @@ The button component supports 4 sizes:
   },
 };
 
-// Destructive
 export const Destructive: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
