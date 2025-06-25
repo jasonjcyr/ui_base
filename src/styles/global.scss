@@ -1,0 +1,9 @@
+@use '../styles' as styles;
+
+@include styles.apply-theme(styles.$light-theme, ':root');
+@include styles.apply-theme(styles.$dark-theme, '[data-theme="dark"]');
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}

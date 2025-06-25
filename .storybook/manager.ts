@@ -1,14 +1,9 @@
 // .storybook/manager.ts
+import { dark, light } from './themes';
 import { addons } from '@storybook/addons';
-import { create } from '@storybook/theming/create';
 
-const theme = create({
-  base: 'light', // or 'dark'
-  brandTitle: 'Talon UI',
-  brandUrl: 'https://talonui.com',
-  brandImage: '/talon-ui.webp',
-});
+const storedTheme = localStorage.getItem('sb-ui-theme') || 'light';
 
 addons.setConfig({
-  theme,
+  theme: storedTheme === 'dark' ? dark : light,
 });

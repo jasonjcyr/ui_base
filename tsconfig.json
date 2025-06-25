@@ -2,12 +2,13 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
+    "moduleResolution": "Node",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
@@ -18,8 +19,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@styles/*": ["styles/*"]
-    }
+    },
+    "types": ["jest", "@testing-library/jest-dom", "node", "react", "react-dom"]
   },
-  "include": ["src", ".storybook"],
-  "exclude": ["**/*.stories.tsx", "**/*.stories.ts"]
+  "include": ["src", ".storybook"]
 }

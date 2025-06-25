@@ -1,3 +1,5 @@
 @forward './tokens/colors';
 @forward './tokens/spacing';
 @forward './mixins/mixins';
+@forward './tokens/typography';
+@forward './mixins/theme.scss' show apply-theme;

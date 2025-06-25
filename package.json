@@ -27,7 +27,6 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "storybook dev -p 6007 --no-open",
     "prettier:check": "prettier --check \"**/*.{js,ts,tsx,css,json,md}\"",
     "prettier:write": "prettier --write \"**/*.{js,ts,tsx,css,json,md}\"",
@@ -38,7 +37,8 @@
     "prepare": "chmod +x .husky/pre-commit",
     "build-dev": " ANALYZE=true vite build",
     "build": "npm run prettier:ci && vite build",
-    "build-storybook": "storybook build -o storybook-static"
+    "build-storybook": "storybook build -o storybook-static",
+    "test": "jest --coverage"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
+    "@jest/globals": "^30.0.2",
     "@storybook/addon-a11y": "^9.0.9",
     "@storybook/addon-designs": "^10.0.1",
     "@storybook/addon-docs": "^9.0.9",
@@ -65,9 +66,14 @@
     "@storybook/addons": "^7.6.17",
     "@storybook/nextjs": "^9.0.9",
     "@storybook/nextjs-vite": "^9.0.9",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/node": "^22.15.29",
+    "@types/node": "^22.15.32",
     "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@vitejs/plugin-react": "^4.1.0",
@@ -79,6 +85,9 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.1",
     "husky": "^9.1.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.2",
     "lint-staged": "^16.1.0",
     "playwright": "^1.52.0",
     "postcss": "^8.4.24",
@@ -92,6 +101,7 @@
     "stylelint": "^16.20.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-scss": "^6.12.0",
+    "ts-jest": "^29.4.0",
     "typed-scss-modules": "^8.1.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
@@ -101,7 +111,8 @@
     "vitest": "^3.2.2"
   },
   "dependencies": {
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.522.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",

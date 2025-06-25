@@ -1,29 +1,69 @@
-@use '../../styles' as styles;
+@use '../../styles/mixins/mixins' as *;
 
-.btn {
-  @include styles.center;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
+.button {
+  @include button-base;
 }
 
 .primary {
-  background-color: styles.$color-primary;
-  color: white;
-
-  &:hover {
-    background-color: #0069d9;
-  }
+  @include button-variant('primary');
 }
 
 .secondary {
-  background-color: #6c757d;
-  color: white;
+  @include button-variant('secondary');
+}
 
-  &:hover {
-    background-color: #5a6268;
+.danger {
+  @include button-variant('danger');
+}
+
+.ghost {
+  @include button-variant('ghost');
+}
+
+.destructive {
+  @include button-variant('destructive');
+}
+
+.sm {
+  @include button-size(sm);
+}
+
+.md {
+  @include button-size(md);
+}
+
+.lg {
+  @include button-size(lg);
+}
+
+.xl {
+  @include button-size(xl);
+}
+
+.full-width {
+  @include button-full-width;
+}
+
+.icon-only {
+  @include button-icon-only;
+}
+
+.icon {
+  @include flexbox($align-items: center, $justify-content: center);
+}
+
+.spinner {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
