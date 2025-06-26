@@ -1,5 +1,6 @@
 @use 'sass:map';
-@use '../tokens/_colors.scss' as *;
+@use '../tokens/dark-colors' as *;
+@use '../tokens/light-colors' as *;
 @use '../mixins/_theme.scss' as theme;
 @use '../tokens/typography' as *;
 

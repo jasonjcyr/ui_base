@@ -1,4 +1,6 @@
-@forward './tokens/colors';
+
+@forward './tokens/dark-colors';
+@forward './tokens/light-colors';
 @forward './tokens/spacing';
 @forward './mixins/mixins';
 @forward './tokens/typography';

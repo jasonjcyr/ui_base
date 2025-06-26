@@ -1,5 +1,6 @@
 // Colors map
-$colors: (
+@use 'sass:map';
+$colors-dark: (
   base: (
     00: #000000,
     50: #f5f5f5,
@@ -256,21 +257,23 @@ $colors: (
 );
 
 // Theme map
-$theme: (
-  primary: map-get(map-get($colors, blue), 500),
-  secondary: map-get(map-get($colors, purple), 500),
-  neutral: map-get(map-get($colors, gray), 500),
-  success: map-get(map-get($colors, emerald), 500),
-  warning: map-get(map-get($colors, orange), 500),
-  danger: map-get(map-get($colors, red), 500),
-  info: map-get(map-get($colors, sky-blue), 500),
-  background: map-get(map-get($colors, base), 00),
-  surface: map-get(map-get($colors, base), 50),
-  border: map-get(map-get($colors, gray), 100),
-  text: map-get(map-get($colors, gray), 900),
+$dark-theme: (
+  primary: map.get(map.get($colors-dark, blue), 500),
+  secondary: map.get(map.get($colors-dark, purple), 500),
+  neutral: map.get(map.get($colors-dark, gray), 500),
+  success: map.get(map.get($colors-dark, emerald), 500),
+  warning: map.get(map.get($colors-dark, orange), 500),
+  danger: map.get(map.get($colors-dark, red), 500),
+  info: map.get(map.get($colors-dark, sky-blue), 500),
+  background: map.get(map.get($colors-dark, base), 00),
+  surface: map.get(map.get($colors-dark, base), 50),
+  border: map.get(map.get($colors-dark, gray), 100),
+  text: map.get(map.get($colors-dark, gray), 900),
 );
 
+// Removed for same function in dark and light, need to think of a better approach
+
 // Dynamic function to fetch color by palette and level
-@function get-color($palette, $level) {
-  @return map-get(map-get($colors, $palette), $level);
-}
+// @function get-color($palette, $level) {
+//   @return map.get(map.get($colors-dark, $palette), $level);
+// }
