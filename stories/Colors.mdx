@@ -2,7 +2,7 @@ import './colors.css';
 import darkColors from './dark-colors.json';
 import lightColors from './light-colors.json';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export const meta = {
   title: 'Design Tokens/Colors',
@@ -19,9 +19,7 @@ export default function ColorThemePreview() {
 return (
 <>
 <div className="theme-selector">
-<label htmlFor="theme-select" className="theme-label">
-Theme:
-</label>
+<label htmlFor="theme-select" className="theme-label">Theme:</label>
 <select
 id="theme-select"
 value={theme}
@@ -44,8 +42,11 @@ className="theme-dropdown" >
                   <div
                     className="color-box"
                     style={{ backgroundColor: value }}
-                    title={`${category}-${shade}: ${value}`}
-                  />
+                  >
+                    <div className="tooltip">
+                      {`${category}-${shade}: ${value}`}
+                    </div>
+                  </div>
                   <div className="color-meta">
                     <div className="color-name">{`${category}-${shade}`}</div>
                     <div className="color-value">{value}</div>
