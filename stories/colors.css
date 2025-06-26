@@ -40,7 +40,6 @@
   padding-bottom: 0.5rem;
 }
 
-/* Enforce single row with shrinkable cards */
 .color-grid {
   display: flex;
   flex-wrap: nowrap;
@@ -49,7 +48,6 @@
   overflow: hidden;
 }
 
-/* Each swatch must shrink to fit */
 .color-swatch {
   flex: 1 1 0;
   max-width: 100%;
@@ -101,4 +99,38 @@
 .color-value {
   font-family: monospace;
   color: #6b7280;
+}
+
+.colors-wrapper.light-theme {
+  background-color: #ffffff;
+  color: #111827;
+  padding: 1.5rem;
+}
+
+.colors-wrapper.dark-theme {
+  background-color: #000000;
+  color: #f5f5f5;
+  padding: 1.5rem;
+}
+
+.dark-theme .color-heading {
+  color: #f5f5f5;
+  border-bottom-color: #333;
+}
+
+.dark-theme .color-swatch {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+.dark-theme .color-box {
+  border-bottom-color: #333;
+}
+
+.dark-theme .color-name {
+  color: #e5e5e5;
+}
+
+.dark-theme .color-value {
+  color: #a3a3a3;
 }
