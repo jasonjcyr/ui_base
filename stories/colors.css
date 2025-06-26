@@ -1,58 +1,14 @@
-.theme-selector {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Label styling */
-.theme-label {
-  font-size: 1rem;
-  font-weight: 500;
-  color: inherit;
-}
-
-/* Dropdown styling */
-.theme-dropdown {
-  padding: 0.4rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
-  appearance: none;
-  outline: none;
-  transition: border 0.2s ease, background 0.2s ease;
-}
-
-/* Dark theme dropdown override */
-.dark-theme .theme-dropdown {
-  background-color: #1e1e1e;
-  color: #fff;
-  border-color: #555;
-}
-
-.color-section {
-  margin-bottom: 4rem;
-}
-
-.color-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: #1f2937; /* gray-800 */
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 0.5rem;
-}
-
 .color-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
 }
 
 .color-swatch {
+  width: 140px; /* fixed width for consistency */
+  min-width: 140px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -61,36 +17,31 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-}
-
-.color-swatch:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
 .color-box {
-  height: 100px;
+  height: 80px;
   border-bottom: 1px solid #f3f4f6;
 }
 
-.color-labels {
+.color-meta {
   padding: 0.75rem;
-  text-align: left;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .color-name {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: #111827; /* gray-900 */
+  color: #111827;
   margin-bottom: 0.25rem;
 }
 
 .color-value {
   font-family: monospace;
   font-size: 0.75rem;
-  color: #6b7280; /* gray-500 */
-}
-.color-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: #6b7280;
 }

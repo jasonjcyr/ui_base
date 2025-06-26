@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from 'react';
-import lightColors from './light-colors.json';
-import darkColors from './dark-colors.json';
 import './colors.css';
+import darkColors from './dark-colors.json';
+import lightColors from './light-colors.json';
 
+import React, { useEffect, useState } from 'react';
 
 export const meta = {
   title: 'Design Tokens/Colors',
@@ -16,22 +16,21 @@ export default function ColorThemePreview() {
   const [theme, setTheme] = useState('light');
   const colors = theme === 'dark' ? darkColors : lightColors;
 
-  return (
-    <>
-      <div className="theme-selector">
-        <label htmlFor="theme-select" className="theme-label">
-          Theme:
-        </label>
-        <select
-          id="theme-select"
-          value={theme}
-          onChange={(e) => setTheme(e.target.value)}
-          className="theme-dropdown"
-        >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </div>
+return (
+<>
+<div className="theme-selector">
+<label htmlFor="theme-select" className="theme-label">
+Theme:
+</label>
+<select
+id="theme-select"
+value={theme}
+onChange={(e) => setTheme(e.target.value)}
+className="theme-dropdown" >
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+</select>
+</div>
 
       <div className={`colors-wrapper ${theme}-theme`}>
         {Object.entries(colors).map(([category, colorSet]) => (
@@ -48,7 +47,7 @@ export default function ColorThemePreview() {
                     title={`${category}-${shade}: ${value}`}
                   />
                   <div className="color-meta">
-                    <div className="color-name">{shade}</div>
+                    <div className="color-name">{`${category}-${shade}`}</div>
                     <div className="color-value">{value}</div>
                   </div>
                 </div>
@@ -58,7 +57,8 @@ export default function ColorThemePreview() {
         ))}
       </div>
     </>
-  );
+
+);
 }
 
 <ColorThemePreview />
