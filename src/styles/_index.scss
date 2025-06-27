@@ -1,7 +1,7 @@
-
 @forward './tokens/dark-colors';
 @forward './tokens/light-colors';
 @forward './tokens/spacing';
-@forward './mixins/mixins';
 @forward './tokens/typography';
+
+@forward './mixins/mixins';
 @forward './mixins/theme.scss' show apply-theme;

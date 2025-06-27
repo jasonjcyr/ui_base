@@ -4,6 +4,8 @@ import lightColors from './light-colors.json';
 
 import React, { useState } from 'react';
 
+import { AutoFitText } from '../src/components/AutoFitText';
+
 export const meta = {
   title: 'Design Tokens/Colors',
 };
@@ -37,22 +39,31 @@ className="theme-dropdown" >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </h2>
             <div className="color-grid">
-              {Object.entries(colorSet).map(([shade, value]) => (
-                <div key={shade} className="color-swatch">
-                  <div
-                    className="color-box"
-                    style={{ backgroundColor: value }}
-                  >
-                    <div className="tooltip">
-                      {`${category}-${shade}: ${value}`}
+              {Object.entries(colorSet).map(([shade, value]) => {
+                const tokenName = `${category}-${shade}`;
+                return (
+                  <div key={shade} className="color-swatch">
+                    <div className="color-box" style={{ backgroundColor: value }}>
+                      <div className="tooltip">{`${tokenName}: ${value}`}</div>
+                    </div>
+                    <div
+                      className="copy-icon"
+                      onClick={() => navigator.clipboard.writeText(tokenName)}
+                      title="Copy token"
+                    >
+                      📋
+                    </div>
+                    <div className="color-meta">
+                      <div className="color-name">
+                        <AutoFitText text={tokenName} />
+                      </div>
+                      <div className="color-value">
+                        <AutoFitText text={value} />
+                      </div>
                     </div>
                   </div>
-                  <div className="color-meta">
-                    <div className="color-name">{`${category}-${shade}`}</div>
-                    <div className="color-value">{value}</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         ))}
