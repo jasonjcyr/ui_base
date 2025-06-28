@@ -51,8 +51,8 @@ export default defineConfig({
             },
             sideEffects: ['*.css', '*.scss'],
             peerDependencies: {
-              react: '^18.0.0',
-              'react-dom': '^18.0.0',
+              react: '>=18',
+              'react-dom': '>=18',
             },
             license: pkg.license,
             publishConfig: pkg.publishConfig,
