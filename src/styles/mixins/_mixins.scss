@@ -146,21 +146,10 @@
 /// Function which helps to utilize the color pallete
 /// And helps it's easy accessibility
 
-@mixin yet-another-color-palette($color-map) {
+@mixin generate-theme($color-map) {
   @each $color, $codes in $color-map {
     @each $code, $value in $codes {
       --#{$color}-#{$code}: #{$value};
     }
   }
 }
-
-/// map.merge can takes two parameters only.
-/// This function is to handle more than two palettes
-
-// @function merge-palettes($palettes...) {
-//   $result: ();
-//   @each $palette in $palettes {
-//     $result: map.merge($result, $palette);
-//   }
-//   @return $result;
-// }

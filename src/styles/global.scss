@@ -9,8 +9,9 @@ body {
 }
 
 :root {
-  @include yet-another-color-palette(styles.$light-theme);
+  @include generate-theme(styles.$colors-light);
 }
+
 [data-theme='dark'] {
-  @include yet-another-color-palette(styles.$dark-theme);
+  @include generate-theme(styles.$colors-dark);
 }
