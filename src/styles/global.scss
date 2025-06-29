@@ -7,3 +7,10 @@ body {
   background-color: var(--background);
   color: var(--text);
 }
+
+:root {
+  @include yet-another-color-palette(styles.$light-theme);
+}
+[data-theme='dark'] {
+  @include yet-another-color-palette(styles.$dark-theme);
+}
