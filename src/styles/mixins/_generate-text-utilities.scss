@@ -1,0 +1,19 @@
+@mixin generate-text-utilities($colors, $semantic-colors, $selector) {
+  #{$selector} {
+    @each $color-name, $color-map in $colors {
+      @each $shade, $value in $color-map {
+        .text-#{'' + $color-name}-#{$shade} {
+          color: #{$value} !important;
+        }
+      }
+    }
+
+    @each $semantic-color-name, $semantic-map in $semantic-colors {
+      @each $variant, $hex in $semantic-map {
+        .text-#{$semantic-color-name}-#{$variant} {
+          color: #{$hex} !important;
+        }
+      }
+    }
+  }
+}

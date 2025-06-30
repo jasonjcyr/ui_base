@@ -4,10 +4,9 @@ import React from 'react';
 
 import clsx from 'clsx';
 
+import { ValidTextColor } from '@/interfaceCollection/Color.type';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools/testMetaData';
-
-// Adjust path as needed
 
 type PredefinedVariant =
   | 'h1'
@@ -24,6 +23,7 @@ type PredefinedVariant =
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;
   variant?: PredefinedVariant;
+  color?: ValidTextColor;
   className?: string;
   children: React.ReactNode;
   testMetaData?: TestMetaData;
@@ -32,6 +32,7 @@ type TypographyProps<Tag extends React.ElementType = 'p'> = {
 export const Typography = <Tag extends React.ElementType = 'p'>({
   as,
   variant = 'body',
+  color,
   children,
   className,
   testMetaData,
@@ -42,13 +43,18 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
 
   const variantClass = styles[`typography-${variant}`];
 
+  let colorClass = '';
+  if (color) {
+    colorClass = `text-${color}`;
+  }
+
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && !variantClass) {
     console.warn(`[Typography] Missing SCSS class for variant: typography-${variant}`);
   }
 
   return (
     <Component
-      className={clsx(variantClass, className)}
+      className={clsx(variantClass, colorClass, className)}
       {...appendTestMetaData(testMetaData, 'Typography')}
       {...rest}
     >

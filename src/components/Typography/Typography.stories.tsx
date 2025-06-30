@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 
+import { validTextColors } from '@/interfaceCollection/Color.type';
+
 const meta: Meta<typeof Typography> = {
   title: 'Components/Typography',
   component: Typography,
@@ -12,6 +14,10 @@ const meta: Meta<typeof Typography> = {
     variant: 'body',
   },
   argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: validTextColors,
+    },
     variant: {
       control: 'select',
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body', 'caption', 'lead', 'overline'],
