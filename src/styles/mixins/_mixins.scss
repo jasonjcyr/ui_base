@@ -149,7 +149,7 @@
 @mixin generate-theme($color-map) {
   @each $color, $codes in $color-map {
     @each $code, $value in $codes {
-      --#{$color}-#{$code}: #{$value};
+      --#{"" + $color}-#{$code}: #{$value};
     }
   }
 }
