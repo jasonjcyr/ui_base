@@ -1,5 +1,9 @@
 @use '../styles' as styles;
+@use '../styles/mixins/generate-text-utilities' as textUtils;
 
+// ==============================
+// Base theme variables
+// ==============================
 @include styles.apply-theme(styles.$light-theme, ':root');
 @include styles.apply-theme(styles.$dark-theme, '[data-theme="dark"]');
 
@@ -7,8 +11,6 @@ body {
   background-color: var(--background);
   color: var(--text);
 }
-
-// Optional: Keep these if still using legacy theme output
 :root {
   @include styles.generate-theme(styles.$semantic-colors-light);
 }
@@ -20,21 +22,31 @@ body {
 // ==============================
 // Text color utilities
 // ==============================
+:root {
+  @each $color-name, $color-map in styles.$colors-light {
+    @each $shade, $value in $color-map {
+      .text-#{'' + $color-name}-#{$shade} {
+        color: #{$value} !important;
+      }
+    }
+  }
 
-// Flat color tokens (e.g., blue.100, blue.600)
-@each $color-name, $color-map in styles.$colors-light {
-  @each $shade, $value in $color-map {
-    .text-#{'' + $color-name}-#{$shade} {
-      color: #{$value} !important;
+  @each $semantic-color-name, $semantic-map in styles.$semantic-colors-light {
+    @each $variant, $hex in $semantic-map {
+      .text-#{$semantic-color-name}-#{$variant} {
+        color: #{$hex} !important;
+      }
     }
   }
 }
 
-// Semantic color tokens (e.g., primary.base, danger.hover)
-@each $semantic-color-name, $semantic-map in styles.$semantic-colors-light {
-  @each $variant, $hex in $semantic-map {
-    .text-#{$semantic-color-name}-#{$variant} {
-      color: #{$hex} !important;
-    }
-  }
-}
+@include textUtils.generate-text-utilities(
+  styles.$colors-light,
+  styles.$semantic-colors-light,
+  ':root'
+);
+@include textUtils.generate-text-utilities(
+  styles.$colors-dark,
+  styles.$semantic-colors-dark,
+  '[data-theme="dark"]'
+);
