@@ -6,8 +6,7 @@ import clsx from 'clsx';
 
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools/testMetaData';
-
-// Adjust path as needed
+import { validTextColors } from '@/tools/validTextColors';
 
 type PredefinedVariant =
   | 'h1'
@@ -43,7 +42,16 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
   const Component = (as ?? inferredTag) as React.ElementType;
 
   const variantClass = styles[`typography-${variant}`];
-  const colorClass = color ? `text-${color}` : '';
+
+  let colorClass = '';
+  if (color) {
+    if (validTextColors.has(color)) {
+      colorClass = `text-${color}`;
+    } else if (process.env.NODE_ENV === 'development') {
+      console.warn(`[Typography] Invalid color class: text-${color}`);
+    }
+  }
+
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && !variantClass) {
     console.warn(`[Typography] Missing SCSS class for variant: typography-${variant}`);
   }
