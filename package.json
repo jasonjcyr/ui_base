@@ -1,6 +1,6 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.7.1",
+  "version": "1.8.1",
   "description": "ui common library",
   "main": "dist/my-ui-lib.umd.js",
   "module": "dist/my-ui-lib.es.js",
@@ -115,7 +115,15 @@
     "lucide-react": "^0.522.0"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
   }
 }
