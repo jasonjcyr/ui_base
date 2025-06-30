@@ -4,9 +4,9 @@ import React from 'react';
 
 import clsx from 'clsx';
 
+import { ValidTextColor } from '@/interfaceCollection/Color.type';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools/testMetaData';
-import { validTextColors } from '@/tools/validTextColors';
 
 type PredefinedVariant =
   | 'h1'
@@ -23,7 +23,7 @@ type PredefinedVariant =
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;
   variant?: PredefinedVariant;
-  color?: string;
+  color?: ValidTextColor;
   className?: string;
   children: React.ReactNode;
   testMetaData?: TestMetaData;
@@ -45,11 +45,7 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
 
   let colorClass = '';
   if (color) {
-    if (validTextColors.has(color)) {
-      colorClass = `text-${color}`;
-    } else if (process.env.NODE_ENV === 'development') {
-      console.warn(`[Typography] Invalid color class: text-${color}`);
-    }
+    colorClass = `text-${color}`;
   }
 
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && !variantClass) {
