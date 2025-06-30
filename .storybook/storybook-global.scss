@@ -1,0 +1,94 @@
+[data-theme='dark'] {
+  .sbdocs-title,
+  .sbdocs-h1,
+  .sbdocs-h2,
+  .sbdocs-h3,
+  .sbdocs-h4,
+  .sbdocs-h5,
+  .sbdocs-h6,
+  .sbdocs-p {
+    color: #ffffff !important; // White text for dark theme
+  }
+
+  // Fix links color too if needed
+  .sbdocs-a {
+    color: #9ecbff !important;
+  }
+  .sbdocs-preview .docblock-argstable-head,
+  .sbdocs-preview .docblock-argstable-body,
+  .sbdocs-preview h2,
+  .docblock-argstable-body span,
+  .docblock-argstable-head span,
+  .sbdocs-preview .sidebar-subheading,
+  .sbdocs-preview .sidebar-item,
+  .sbdocs-preview .sidebar-header,
+  .sbdocs-preview .sidebar-title,
+  .sbdocs-preview .sidebar-subtitle,
+  .sidebar-subheading,
+  .sidebar-item,
+  .sbdocs-title .sb-unstyled {
+    color: #ffffff !important;
+  }
+  #stories,
+  h1,
+  h2 {
+    color: #ffffff !important;
+  }
+}
+[data-theme='dark'] {
+  .sbdocs.sbdocs-content,
+  .sbdocs.sbdocs-wrapper {
+    color: #ffffff !important;
+    p,
+    li,
+    ul,
+    ol,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: inherit !important;
+    }
+
+    a {
+      color: #9ecbff !important;
+    }
+
+    code,
+    pre {
+      color: #ffeb95 !important;
+      background-color: #2a2f45 !important;
+    }
+
+    hr {
+      border-color: #374151 !important;
+    }
+
+    table,
+    th,
+    td {
+      color: inherit !important;
+      border-color: #4b5563 !important;
+      background: black;
+    }
+    ul,
+    ol {
+      color: inherit !important;
+    }
+
+    .sidebar-header,
+    .sidebar-subheading,
+    .sidebar-item,
+    .sbdocs-title,
+    .sbdocs-h1,
+    .sbdocs-h2,
+    .sbdocs-h3,
+    .sbdocs-h4,
+    .sbdocs-h5,
+    .sbdocs-h6 {
+      color: inherit !important;
+    }
+  }
+}
