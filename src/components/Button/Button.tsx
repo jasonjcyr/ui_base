@@ -80,7 +80,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {loading ? (spinner ?? <DefaultSpinner testMetaData={testMetaData} />) : icon}
 
         {!iconOnly && (
-          <Typography variant="body" testMetaData={appendTestMetaData(testMetaData, 'Text')}>
+          <Typography
+            as="span"
+            variant="body"
+            testMetaData={appendTestMetaData(testMetaData, 'Text')}
+          >
             {children}
           </Typography>
         )}
