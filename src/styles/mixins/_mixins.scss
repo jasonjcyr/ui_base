@@ -1,7 +1,6 @@
 @use 'sass:map';
 @use '../tokens/dark-colors' as *;
 @use '../tokens/light-colors' as *;
-@use '../mixins/_theme.scss' as theme;
 @use '../tokens/typography' as *;
 
 /// Flexbox utility mixin
@@ -45,36 +44,20 @@
   }
 }
 
-/// Responsive typography utility
-@mixin typography-variant($font-size-map, $line-height-map, $font-weight, $breakpoints) {
-  font-weight: $font-weight;
-
-  $base-font-size: map.get($font-size-map, xs);
-  $base-line-height: map.get($line-height-map, xs);
-
-  @if $base-font-size and $base-line-height {
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-  }
-
-  @each $breakpoint in $breakpoints {
-    $font-size: map.get($font-size-map, $breakpoint);
-    $line-height: map.get($line-height-map, $breakpoint);
-
-    @if $font-size and $line-height {
-      @include respond-to($breakpoint) {
-        font-size: $font-size;
-        line-height: $line-height;
-      }
-    }
-  }
-}
-
 /// Outputs CSS variables from a color map
 @mixin generate-theme($color-map) {
   @each $color, $codes in $color-map {
     @each $code, $value in $codes {
       --#{"" + $color}-#{$code}: #{$value};
+    }
+  }
+}
+
+/// Applies a theme by targeting a selector (e.g., :root or [data-theme='dark'])
+@mixin apply-theme($theme-map, $selector) {
+  #{$selector} {
+    @each $name, $value in $theme-map {
+      --#{$name}-base: #{$value};
     }
   }
 }
