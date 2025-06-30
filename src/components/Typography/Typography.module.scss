@@ -109,3 +109,13 @@
     @include typography-variant($font-overline, $line-overline, $weight-bold, $breakpoints);
   }
 }
+
+@each $color-name, $color-map in $colors-light {
+  $color-name-str: '' + $color-name;
+
+  @each $shade, $value in $color-map {
+    .text-#{$color-name-str}-#{$shade} {
+      color: #{$value};
+    }
+  }
+}

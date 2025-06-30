@@ -8,10 +8,33 @@ body {
   color: var(--text);
 }
 
+// Optional: Keep these if still using legacy theme output
 :root {
   @include styles.generate-theme(styles.$semantic-colors-light);
 }
 
 [data-theme='dark'] {
   @include styles.generate-theme(styles.$semantic-colors-dark);
+}
+
+// ==============================
+// Text color utilities
+// ==============================
+
+// Flat color tokens (e.g., blue.100, blue.600)
+@each $color-name, $color-map in styles.$colors-light {
+  @each $shade, $value in $color-map {
+    .text-#{'' + $color-name}-#{$shade} {
+      color: #{$value} !important;
+    }
+  }
+}
+
+// Semantic color tokens (e.g., primary.base, danger.hover)
+@each $semantic-color-name, $semantic-map in styles.$semantic-colors-light {
+  @each $variant, $hex in $semantic-map {
+    .text-#{$semantic-color-name}-#{$variant} {
+      color: #{$hex} !important;
+    }
+  }
 }
