@@ -255,6 +255,37 @@ $colors-light: (
   ),
 );
 
+$semantic-colors-light: (
+  primary: (
+    base: map.get(map.get($colors-light, blue), 500),
+    hover: map.get(map.get($colors-light, blue), 600),
+  ),
+  secondary: (
+    base: map.get(map.get($colors-light, purple), 500),
+    hover: map.get(map.get($colors-light, purple), 600),
+  ),
+  danger: (
+    base: map.get(map.get($colors-light, red), 500),
+    hover: map.get(map.get($colors-light, red), 600),
+  ),
+  destructive: (
+    base: map.get(map.get($colors-light, red), 700),
+    hover: map.get(map.get($colors-light, red), 800),
+  ),
+  ghost: (
+    hover: rgba(0, 0, 0, 0.05),
+  ),
+  buttonText: (
+    base: #ffffff,
+  ),
+  border: (
+    base: map.get(map.get($colors-light, gray), 200),
+  ),
+  text: (
+    base: map.get(map.get($colors-light, gray), 900),
+  ),
+);
+
 // Theme map
 $light-theme: (
   primary: map.get(map.get($colors-light, blue), 500),

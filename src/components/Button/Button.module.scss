@@ -1,55 +1,145 @@
-@use '../../styles/mixins/mixins' as *;
+/* Button.module.scss */
 
 .button {
-  @include button-base;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 0.5rem;
+  line-height: 1.25;
+  font-family: inherit;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .primary {
-  @include button-variant('primary');
+  background-color: var(--primary-base);
+  color: var(--buttonText-base);
+
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--border-base);
+    color: var(--text-base);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 .secondary {
-  @include button-variant('secondary');
+  background-color: var(--secondary-base);
+  color: var(--buttonText-base);
+
+  &:hover {
+    background-color: var(--secondary-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--border-base);
+    color: var(--text-base);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 .danger {
-  @include button-variant('danger');
+  background-color: var(--danger-base);
+  color: var(--buttonText-base);
+
+  &:hover {
+    background-color: var(--danger-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--border-base);
+    color: var(--text-base);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 .ghost {
-  @include button-variant('ghost');
+  background-color: transparent;
+  color: var(--primary-base);
+
+  &:hover {
+    background-color: var(--ghost-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--border-base);
+    color: var(--text-base);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 .destructive {
-  @include button-variant('destructive');
+  background-color: var(--destructive-base);
+  color: var(--buttonText-base);
+
+  &:hover {
+    background-color: var(--destructive-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--border-base);
+    color: var(--text-base);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
+/* === Sizes === */
+
 .sm {
-  @include button-size(sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 
 .md {
-  @include button-size(md);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
 }
 
 .lg {
-  @include button-size(lg);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
 }
 
 .xl {
-  @include button-size(xl);
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
 }
 
+/* === Utilities === */
+
 .full-width {
-  @include button-full-width;
+  width: 100%;
 }
 
 .icon-only {
-  @include button-icon-only;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon {
-  @include flexbox($align-items: center, $justify-content: center);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 }
 
 .spinner {
@@ -66,4 +156,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

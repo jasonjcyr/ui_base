@@ -9,9 +9,9 @@ body {
 }
 
 :root {
-  @include styles.generate-theme(styles.$colors-light);
+  @include styles.generate-theme(styles.$semantic-colors-light);
 }
 
 [data-theme='dark'] {
-  @include styles.generate-theme(styles.$colors-dark);
+  @include styles.generate-theme(styles.$semantic-colors-dark);
 }
