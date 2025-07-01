@@ -2,7 +2,9 @@
 
 import styles from './Button.module.scss';
 
-import { ReactNode, forwardRef } from 'react';
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
+
+import Link from 'next/link';
 
 import clsx from 'clsx';
 
@@ -10,11 +12,11 @@ import { Typography } from '@/components/Typography';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools';
 
-// Variants and Sizes
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'xl' | 'lg' | 'md' | 'sm';
 
-type ButtonProps = {
+type ButtonProps<C extends ElementType> = {
+  as?: C;
   children: ReactNode;
   variant?: Variant;
   size?: Size;
@@ -23,74 +25,72 @@ type ButtonProps = {
   fullWidth?: boolean;
   iconOnly?: boolean;
   destructive?: boolean;
-  testMetaData?: TestMetaData;
   icon?: ReactNode;
   spinner?: ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+  className?: string;
+  testMetaData?: TestMetaData;
+} & Omit<ComponentPropsWithoutRef<C>, 'as' | 'children' | 'disabled'>;
 
-// Default Spinner Component
-const DefaultSpinner = ({ testMetaData }: { testMetaData?: TestMetaData }) => {
-  const meta = appendTestMetaData(testMetaData, 'Spinner');
-  return <span className={clsx(styles.spinner)} {...meta} />;
-};
+export const Button = <C extends ElementType = 'button'>({
+  as,
+  children,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  loading = false,
+  fullWidth = false,
+  iconOnly = false,
+  destructive = false,
+  icon,
+  spinner,
+  className,
+  testMetaData,
+  ...props
+}: ButtonProps<C>) => {
+  const isDisabled = disabled || loading;
+  const Component = as || 'button';
+  const isLink = Component === 'a' || (Component as unknown) === Link;
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
+  const buttonClasses = clsx(
+    styles.button,
+    styles[variant],
+    styles[size],
     {
-      children,
-      variant = 'primary',
-      size = 'md',
-      disabled = false,
-      loading = false,
-      fullWidth = false,
-      iconOnly = false,
-      destructive = false, // ✅ YOU WERE MISSING THIS
-      testMetaData,
-      icon,
-      spinner,
-      className,
-      ...props
+      [styles.destructive]: destructive,
+      [styles.disabled]: isDisabled,
+      [styles['full-width']]: fullWidth,
+      [styles['icon-only']]: iconOnly,
+      [styles.loading]: loading,
     },
-    ref,
-  ) => {
-    const isDisabled = disabled || loading;
+    className,
+  );
 
-    const buttonClasses = clsx(
-      styles.button,
-      styles[variant],
-      styles[size],
-      {
-        [styles.destructive]: destructive,
-        [styles.disabled]: isDisabled,
-        [styles['full-width']]: fullWidth,
-        [styles['icon-only']]: iconOnly,
-        [styles.loading]: loading,
-      },
-      className,
-    );
+  const meta = appendTestMetaData(testMetaData, 'Button');
 
-    return (
-      <button
-        ref={ref}
-        className={buttonClasses}
-        disabled={isDisabled}
-        {...testMetaData}
-        {...props}
-      >
-        {loading ? (spinner ?? <DefaultSpinner testMetaData={testMetaData} />) : icon}
+  return (
+    <Component
+      className={buttonClasses}
+      {...(isLink ? { 'aria-disabled': isDisabled } : { disabled: isDisabled })}
+      {...meta}
+      {...props}
+    >
+      {loading
+        ? (spinner ?? (
+            <span className={styles.spinner} {...appendTestMetaData(testMetaData, 'Spinner')} />
+          ))
+        : icon}
 
-        {!iconOnly && (
-          <Typography
-            as="span"
-            variant="body"
-            testMetaData={appendTestMetaData(testMetaData, 'Text')}
-          >
-            {children}
-          </Typography>
-        )}
-      </button>
-    );
-  },
-);
+      {!iconOnly && (
+        <Typography
+          as="span"
+          variant="body"
+          testMetaData={appendTestMetaData(testMetaData, 'Text')}
+        >
+          {children}
+        </Typography>
+      )}
+    </Component>
+  );
+};
 
 Button.displayName = 'Button';
