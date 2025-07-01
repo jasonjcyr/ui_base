@@ -1,6 +1,6 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.10.1",
+  "version": "1.11.1",
   "description": "ui common library",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -12,7 +12,11 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "start": "storybook dev -p 6007 --no-open",
     "prettier:check": "prettier --check \"**/*.{js,ts,tsx,css,json,md}\"",
@@ -45,8 +49,12 @@
     "dev": "npm run build:watch"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --max-warnings=0 --no-warn-ignored --format=stylish"],
-    "*.{scss,css,json,md,yml,yaml}": ["prettier --check"]
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --max-warnings=0 --no-warn-ignored --format=stylish"
+    ],
+    "*.{scss,css,json,md,yml,yaml}": [
+      "prettier --check"
+    ]
   },
   "keywords": [
     "react",
