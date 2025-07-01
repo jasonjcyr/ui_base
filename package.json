@@ -1,12 +1,10 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.9.1",
-  "description": "A comprehensive React design system with dynamic component exports",
-  "type": "module",
-  "main": "./dist/index/index.js",
-  "module": "./dist/index/index.js",
-  "types": "./dist/index/index.d.ts",
-  "sideEffects": ["**/*.css", "**/*.scss", "**/*.module.scss"],
+  "version": "1.10.1",
+  "description": "ui common library",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index/index.d.ts",

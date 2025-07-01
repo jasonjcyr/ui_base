@@ -1,5 +1,9 @@
+'use client';
+
 import { Button } from './Button';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import Link from 'next/link';
 
 import { ArrowLeft } from 'lucide-react';
 
@@ -17,25 +21,39 @@ Buttons allow users to initiate an action or command when clicked or tapped, whi
 
 ---
 
-## When to use it
+## ✅ When to use it
+- Users need to **navigate** through a product or **perform an action** (e.g., "Save", "Submit").
 
-Use buttons when users need to either navigate through a product or perform a specific action.
+---
 
-## Usage guidelines
+## 🔧 Usage guidelines
+- Always label buttons **clearly**.
+- Choose variants based on **visual priority**.
+- Place buttons **consistently** within interfaces.
+- Combine types (e.g. primary + secondary) when offering **multiple choices**.
+- Show a **loading state** when saving or submitting information.
 
-- Always label buttons clearly.
-- Think about priority when choosing the button variant.
-- Place buttons predictably and coherently.
-- Combine different button types if multiple actions exist.
-- Use loading states when saving/inputting info.
+---
 
-## Content guidelines
+## ✍️ Content guidelines
+- Start with a **verb** + **noun**: \`"Confirm order"\`
+- Limit to **3 words max**
+- Use **sentence case** (capitalize first word and proper nouns)
+- Exceptions: \`"Save"\`, \`"Cancel"\`, \`"Close"\`
 
-- Start labels with an actionable verb and noun ("Confirm order").
-- Keep labels to max 3 words.
-- Only capitalize first word and proper nouns.
-- Acceptable exceptions: "Save", "Cancel", "Close".
-`,
+---
+
+## 🧬 Polymorphic support (\`as\` prop)
+
+Supports rendering as any element (e.g., \`<a>\`, \`next/link\`, \`<div>\`, etc.).
+
+\`\`\`tsx
+import Link from 'next/link';
+
+<Button as={Link} href="/about">About Us</Button>
+<Button as="a" href="https://example.com">External Link</Button>
+\`\`\`
+        `,
       },
     },
   },
@@ -43,20 +61,16 @@ Use buttons when users need to either navigate through a product or perform a sp
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'ghost', 'danger'],
-      description: 'Choose the button variant.',
-      defaultValue: 'secondary',
     },
     size: {
       control: 'select',
       options: ['xl', 'lg', 'md', 'sm'],
-      description: 'Select the button size.',
-      defaultValue: 'md',
     },
-    disabled: { control: 'boolean', description: 'Disable the button.' },
-    loading: { control: 'boolean', description: 'Set loading state.' },
-    fullWidth: { control: 'boolean', description: 'Stretch to full width.' },
-    iconOnly: { control: 'boolean', description: 'Show only icon, no label.' },
-    destructive: { control: 'boolean', description: 'Destructive action.' },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    fullWidth: { control: 'boolean' },
+    iconOnly: { control: 'boolean' },
+    destructive: { control: 'boolean' },
     icon: { control: false },
     spinner: { control: false },
     testMetaData: { control: false },
@@ -76,7 +90,7 @@ Use buttons when users need to either navigate through a product or perform a sp
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-// Default story
+// Default Button
 export const Default: Story = {
   parameters: {
     docs: {
@@ -85,7 +99,7 @@ export const Default: Story = {
   },
 };
 
-// Variants story (all variants side by side)
+// Variants side by side
 export const Variants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -95,70 +109,9 @@ export const Variants: Story = {
       <Button variant="danger">Danger</Button>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: `
-### Variants
-
-- **Primary** — Most important action.
-- **Secondary** — Complementary actions.
-- **Ghost** — Minimal alternative.
-- **Danger** — Destructive variant.
-        `,
-      },
-    },
-  },
 };
 
-// ✅ ✅ ✅ New Danger story
-export const Danger: Story = {
-  args: {
-    variant: 'danger',
-    children: 'Danger Button',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-### Danger Variant
-
-Use the danger variant for irreversible or dangerous actions.
-        `,
-      },
-      source: {
-        code: `<Button variant="danger">Danger Button</Button>`,
-      },
-    },
-  },
-};
-
-// Destructive story (boolean prop)
-export const Destructive: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-      <Button variant="primary" destructive>
-        Delete
-      </Button>
-      <Button variant="secondary" destructive>
-        Remove
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: `
-### Destructive Prop
-
-Use \`destructive=true\` for irreversible actions, applied on top of variants.
-        `,
-      },
-    },
-  },
-};
-
-// Sizes
+// Sizes side by side
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -170,7 +123,7 @@ export const Sizes: Story = {
   ),
 };
 
-// WithIcon
+// Button with Icon
 export const WithIcon: Story = {
   args: {
     icon: <ArrowLeft />,
@@ -178,7 +131,7 @@ export const WithIcon: Story = {
   },
 };
 
-// IconOnly
+// IconOnly button
 export const IconOnly: Story = {
   args: {
     iconOnly: true,
@@ -187,7 +140,7 @@ export const IconOnly: Story = {
   },
 };
 
-// Loading
+// Loading state
 export const Loading: Story = {
   args: {
     loading: true,
@@ -195,7 +148,7 @@ export const Loading: Story = {
   },
 };
 
-// FullWidth
+// Full width
 export const FullWidth: Story = {
   args: {
     fullWidth: true,
@@ -203,10 +156,67 @@ export const FullWidth: Story = {
   },
 };
 
-// Disabled
+// Disabled state
 export const Disabled: Story = {
   args: {
     disabled: true,
     children: 'Disabled Button',
+  },
+};
+
+// Destructive prop
+export const Destructive: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <Button variant="primary" destructive>
+        Delete
+      </Button>
+      <Button variant="secondary" destructive>
+        Remove
+      </Button>
+    </div>
+  ),
+};
+
+// As Next.js Link
+export const AsNextLink: Story = {
+  render: () => (
+    <Button as={Link} href="/about">
+      About Us
+    </Button>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `This button is rendered as a Next.js \`<Link>\` component using the \`as\` prop.`,
+      },
+      source: {
+        code: `
+import Link from 'next/link';
+
+<Button as={Link} href="/about">
+  About Us
+</Button>`,
+      },
+    },
+  },
+};
+
+// As Native Anchor
+export const AsAnchor: Story = {
+  render: () => (
+    <Button as="a" href="https://example.com" target="_blank" rel="noopener noreferrer">
+      External Link
+    </Button>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `This button is rendered as a native HTML anchor tag.`,
+      },
+      source: {
+        code: `<Button as="a" href="https://example.com">External Link</Button>`,
+      },
+    },
   },
 };
