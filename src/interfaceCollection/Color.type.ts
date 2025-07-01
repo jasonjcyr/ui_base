@@ -1,4 +1,6 @@
-const colorGroups = {
+// Color.type.ts
+
+export const colorGroups = {
   base: ['00', '50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
   blue: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
   'blue-gray': ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -22,14 +24,15 @@ const colorGroups = {
   yellow: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
 } as const;
 
-function createValidTextColors<T extends readonly string[]>(colors: T): T {
-  return colors;
+export type ColorGroup = keyof typeof colorGroups;
+export type ColorStep = (typeof colorGroups)[ColorGroup][number];
+
+export function createValidTextColors(groups: typeof colorGroups): string[] {
+  return Object.entries(groups).flatMap(([group, steps]) =>
+    steps.map((step) => `${group}-${step}`),
+  );
 }
 
-export const validTextColors = createValidTextColors(
-  Object.entries(colorGroups).flatMap(([name, steps]) =>
-    steps.map((step) => `${name}-${step}` as const),
-  ),
-);
+export const validTextColors = createValidTextColors(colorGroups);
 
 export type ValidTextColor = (typeof validTextColors)[number];

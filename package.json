@@ -10,6 +10,29 @@
       "types": "./dist/index/index.d.ts",
       "import": "./dist/index/index.js"
     },
+    "./AutoFitText": {
+      "types": "./dist/AutoFitText/index.d.ts",
+      "import": "./dist/AutoFitText/index.js",
+      "style": "./dist/AutoFitText/index.css"
+    },
+    "./Button": {
+      "types": "./dist/Button/index.d.ts",
+      "import": "./dist/Button/index.js",
+      "style": "./dist/Button/index.css"
+    },
+    "./Typography": {
+      "types": "./dist/Typography/index.d.ts",
+      "import": "./dist/Typography/index.js",
+      "style": "./dist/Typography/index.css"
+    },
+    "./interfaces": {
+      "types": "./dist/interfaceCollection/index.d.ts",
+      "import": "./dist/interfaceCollection/index.js"
+    },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "import": "./dist/tools/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
