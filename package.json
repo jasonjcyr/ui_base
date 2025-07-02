@@ -4,13 +4,13 @@
   "description": "ui common library",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index/index.d.ts",
       "import": "./dist/index/index.js"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "files": [
     "dist",
@@ -140,6 +140,8 @@
     "vitest": "^3.2.2"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.522.0"
   },

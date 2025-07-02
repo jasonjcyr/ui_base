@@ -3,39 +3,9 @@
 @use '../../styles/tokens/dark-colors' as *;
 @use '../../styles/tokens/light-colors' as *;
 
-// Inline mixins
-
-@mixin flexbox(
-  $includeDisplay: true,
-  $direction: false,
-  $wrap: false,
-  $justify-content: false,
-  $align-items: false
-) {
-  @if $includeDisplay {
-    display: flex;
-  }
-  @if $direction {
-    flex-direction: $direction;
-  }
-  @if $wrap {
-    flex-wrap: $wrap;
-  }
-  @if $justify-content {
-    justify-content: $justify-content;
-  }
-  @if $align-items {
-    align-items: $align-items;
-  }
-}
-
-@mixin center {
-  @include flexbox($justify-content: center, $align-items: center);
-}
-
+// Breakpoint mixin
 @mixin respond-to($breakpoint) {
   $value: map.get($breakpoint-values, $breakpoint);
-
   @if $value {
     @media (min-width: $value) {
       @content;
@@ -43,6 +13,7 @@
   }
 }
 
+// Typography mixin
 @mixin typography-variant($font-size-map, $line-height-map, $font-weight, $breakpoints) {
   font-weight: $font-weight;
 
@@ -67,6 +38,7 @@
   }
 }
 
+// Typography variants
 .typography {
   &-h1 {
     @include typography-variant($font-h1, $line-h1, $weight-bold, $breakpoints);
@@ -107,6 +79,12 @@
   &-overline {
     text-transform: uppercase;
     @include typography-variant($font-overline, $line-overline, $weight-bold, $breakpoints);
+  }
+
+  &-error {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--danger-base);
   }
 }
 

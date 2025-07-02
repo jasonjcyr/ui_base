@@ -1,0 +1,19 @@
+@use 'sass:map';
+@use './light-colors' as *;
+@use './dark-colors' as *;
+
+@mixin theme-vars($theme-map) {
+  @each $key, $val in $theme-map {
+    --#{$key}: #{$val};
+  }
+}
+
+// Light Theme
+[data-theme='light'] {
+  @include theme-vars($light-theme);
+}
+
+// Dark Theme
+[data-theme='dark'] {
+  @include theme-vars($dark-theme);
+}

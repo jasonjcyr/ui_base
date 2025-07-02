@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Typography.module.scss';
 
 import React from 'react';
@@ -18,7 +20,8 @@ type PredefinedVariant =
   | 'body'
   | 'caption'
   | 'lead'
-  | 'overline';
+  | 'overline'
+  | 'error'; // ✅ added
 
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;
@@ -53,11 +56,7 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
   }
 
   return (
-    <Component
-      className={clsx(variantClass, colorClass, className)}
-      {...appendTestMetaData(testMetaData, 'Typography')}
-      {...rest}
-    >
+    <Component className={clsx(variantClass, colorClass, className)} {...testMetaData} {...rest}>
       {children}
     </Component>
   );
