@@ -4,8 +4,6 @@ import styles from './Button.module.scss';
 
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 
-import Link from 'next/link';
-
 import clsx from 'clsx';
 
 import { Typography } from '@/components/Typography';
@@ -15,9 +13,8 @@ import { appendTestMetaData } from '@/tools';
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'xl' | 'lg' | 'md' | 'sm';
 
-type ButtonProps<C extends ElementType> = {
+type BaseProps<C extends ElementType> = {
   as?: C;
-  children: ReactNode;
   variant?: Variant;
   size?: Size;
   disabled?: boolean;
@@ -31,9 +28,20 @@ type ButtonProps<C extends ElementType> = {
   testMetaData?: TestMetaData;
 } & Omit<ComponentPropsWithoutRef<C>, 'as' | 'children' | 'disabled'>;
 
+type WithChildren = {
+  iconOnly?: false;
+  children: ReactNode;
+};
+
+type IconOnly = {
+  iconOnly: true;
+  children?: never;
+};
+
+type ButtonProps<C extends ElementType> = BaseProps<C> & (WithChildren | IconOnly);
+
 export const Button = <C extends ElementType = 'button'>({
   as,
-  children,
   variant = 'primary',
   size = 'md',
   disabled = false,
@@ -45,11 +53,12 @@ export const Button = <C extends ElementType = 'button'>({
   spinner,
   className,
   testMetaData,
+  children,
   ...props
 }: ButtonProps<C>) => {
   const isDisabled = disabled || loading;
   const Component = as || 'button';
-  const isLink = Component === 'a' || (Component as unknown) === Link;
+  const isAnchor = Component === 'a';
 
   const buttonClasses = clsx(
     styles.button,
@@ -70,7 +79,7 @@ export const Button = <C extends ElementType = 'button'>({
   return (
     <Component
       className={buttonClasses}
-      {...(isLink ? { 'aria-disabled': isDisabled } : { disabled: isDisabled })}
+      {...(isAnchor ? { 'aria-disabled': isDisabled } : { disabled: isDisabled })}
       {...meta}
       {...props}
     >
