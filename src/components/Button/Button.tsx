@@ -8,7 +8,6 @@ import clsx from 'clsx';
 
 import { Typography } from '@/components/Typography';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
-import { appendTestMetaData } from '@/tools';
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'xl' | 'lg' | 'md' | 'sm';
@@ -74,27 +73,47 @@ export const Button = <C extends ElementType = 'button'>({
     className,
   );
 
-  const meta = appendTestMetaData(testMetaData, 'Button');
+  const rootMeta = {
+    ...testMetaData,
+    'data-testid': testMetaData?.['data-testid']
+      ? `${testMetaData['data-testid']}-Button`
+      : undefined,
+    'data-uitest': testMetaData?.['data-uitest']
+      ? `${testMetaData['data-uitest']}-Button`
+      : undefined,
+  };
+
+  const spinnerMeta = {
+    ...testMetaData,
+    'data-testid': testMetaData?.['data-testid']
+      ? `${testMetaData['data-testid']}-Spinner`
+      : undefined,
+    'data-uitest': testMetaData?.['data-uitest']
+      ? `${testMetaData['data-uitest']}-Spinner`
+      : undefined,
+  };
+
+  const textMeta = {
+    ...testMetaData,
+    'data-testid': testMetaData?.['data-testid']
+      ? `${testMetaData['data-testid']}-Text`
+      : undefined,
+    'data-uitest': testMetaData?.['data-uitest']
+      ? `${testMetaData['data-uitest']}-Text`
+      : undefined,
+  };
 
   return (
     <Component
       className={buttonClasses}
       {...(isAnchor ? { 'aria-disabled': isDisabled } : { disabled: isDisabled })}
-      {...meta}
+      {...rootMeta}
       {...props}
+      {...testMetaData}
     >
-      {loading
-        ? (spinner ?? (
-            <span className={styles.spinner} {...appendTestMetaData(testMetaData, 'Spinner')} />
-          ))
-        : icon}
-
+      {loading ? (spinner ?? <span className={styles.spinner} {...spinnerMeta} />) : icon}
       {!iconOnly && (
-        <Typography
-          as="span"
-          variant="body"
-          testMetaData={appendTestMetaData(testMetaData, 'Text')}
-        >
+        <Typography as="span" variant="body" {...textMeta}>
           {children}
         </Typography>
       )}

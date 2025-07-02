@@ -15,12 +15,20 @@ describe('Textarea', () => {
     expect(screen.getByText('This is required')).toBeInTheDocument();
   });
 
-  it('shows error styling when error is true', () => {
-    const { container } = render(
-      <Textarea id="bio" value="" onChange={() => {}} error helperText="Invalid input" />,
+  it('shows error message and sets aria-invalid', () => {
+    render(
+      <Textarea
+        id="bio"
+        value=""
+        onChange={() => {}}
+        error="Invalid input"
+        helperText="Should not display"
+      />,
     );
-    expect(container.querySelector('.error')).toBeTruthy();
-    expect(screen.getByText('Invalid input')).toHaveClass('errorText');
+    expect(screen.getByText('Invalid input')).toBeInTheDocument();
+    const textarea = screen.getByRole('textbox');
+    expect(textarea).toHaveAttribute('aria-invalid', 'true');
+    expect(textarea).toHaveAttribute('aria-describedby', 'bio-help');
   });
 
   it('disables textarea when disabled', () => {
@@ -41,13 +49,14 @@ describe('Textarea', () => {
         id="bio"
         value=""
         onChange={() => {}}
-        testMetadata={{
+        testMetaData={{
           'data-testid': 'textarea-test',
           'data-uitest': 'textarea-ui',
         }}
       />,
     );
-    expect(container.firstChild).toHaveAttribute('data-testid', 'textarea-test');
-    expect(container.firstChild).toHaveAttribute('data-uitest', 'textarea-ui');
+    // Updated to match the transformed value with '-Textarea'
+    expect(container.firstChild).toHaveAttribute('data-testid', 'textarea-test-Textarea');
+    expect(container.firstChild).toHaveAttribute('data-uitest', 'textarea-ui-Textarea');
   });
 });

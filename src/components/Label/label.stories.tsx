@@ -19,6 +19,7 @@ Use labels to describe the purpose of a form input.
 - Always associate a label with a form control using \`htmlFor\`
 - Use a required indicator if applicable
 - Use disabled styling when relevant
+- Use error styling when there's a validation issue
         `.trim(),
       },
     },
@@ -48,5 +49,14 @@ export const Disabled: Story = {
     htmlFor: 'password',
     children: 'Password',
     disabled: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    htmlFor: 'terms',
+    children: 'Accept Terms',
+    error: true,
+    required: true,
   },
 };

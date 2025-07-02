@@ -6,6 +6,7 @@ import { InputHTMLAttributes, ReactNode, forwardRef } from 'react';
 
 import clsx from 'clsx';
 
+import { Label } from '@/components/Label';
 import { Typography } from '@/components/Typography';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools';
@@ -16,22 +17,35 @@ export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   helperText?: string;
   icon?: ReactNode;
   fullWidth?: boolean;
+  required?: boolean;
   testMetaData?: TestMetaData;
 }
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
-  ({ id, label, error, helperText, icon, className, fullWidth, testMetaData, ...props }, ref) => {
+  (
+    { id, label, error, helperText, icon, className, fullWidth, required, testMetaData, ...props },
+    ref,
+  ) => {
     const inputId = id || `textinput-${Math.random().toString(36).slice(2, 9)}`;
     const hasError = Boolean(error);
-    const meta = appendTestMetaData(testMetaData, 'TextInput');
+    const describedById = helperText || error ? `${inputId}-help` : undefined;
 
     return (
-      <div className={clsx(styles.wrapper, { [styles['full-width']]: fullWidth })} {...meta}>
+      <div
+        className={clsx(styles.wrapper, { [styles['full-width']]: fullWidth })}
+        {...testMetaData}
+      >
         {label && (
-          <label htmlFor={inputId} className={styles.label}>
+          <Label
+            htmlFor={inputId}
+            required={required}
+            error={hasError}
+            testMetaData={appendTestMetaData(testMetaData, 'Label')}
+          >
             {label}
-          </label>
+          </Label>
         )}
+
         <div
           className={clsx(styles.inputWrapper, {
             [styles.error]: hasError,
@@ -43,21 +57,16 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             id={inputId}
             ref={ref}
             aria-invalid={hasError}
-            aria-describedby={helperText || error ? `${inputId}-help` : undefined}
+            aria-describedby={describedById}
             className={clsx(styles.input, className)}
+            required={required}
             {...props}
           />
         </div>
-        {(helperText || error) && (
-          <Typography
-            as="span"
-            variant="caption"
-            className={clsx(styles.helperText, {
-              [styles.errorText]: hasError,
-            })}
-            id={`${inputId}-help`}
-          >
-            {error || helperText}
+
+        {(helperText || hasError) && (
+          <Typography as="p" id={describedById} variant={hasError ? 'error' : 'caption'}>
+            {hasError ? error : helperText}
           </Typography>
         )}
       </div>

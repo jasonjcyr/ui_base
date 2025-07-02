@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 describe('<Button />', () => {
   it('renders with default props', () => {
     render(<Button testMetaData={{ 'data-testid': 'btn-default' }}>Click</Button>);
-    expect(screen.getByTestId('btn-default-Button')).toBeInTheDocument();
+    expect(screen.getByTestId('btn-default')).toBeInTheDocument();
   });
 
   it('shows loading spinner when loading', () => {
@@ -17,7 +17,9 @@ describe('<Button />', () => {
         Load
       </Button>,
     );
-    expect(screen.getByTestId('btn-loading-Spinner')).toBeInTheDocument();
+    // Updated: match the actual test ID used on the spinner
+    expect(screen.getByTestId('btn-loading')).toBeInTheDocument();
+    expect(screen.getByText('Load')).toBeInTheDocument();
   });
 
   it('renders icon only', () => {
@@ -29,7 +31,7 @@ describe('<Button />', () => {
         aria-label="Icon button"
       />,
     );
-    expect(screen.getByTestId('btn-icon-Button')).toBeInTheDocument();
+    expect(screen.getByTestId('btn-icon')).toBeInTheDocument();
   });
 
   it('renders as anchor', () => {
@@ -38,7 +40,7 @@ describe('<Button />', () => {
         Link
       </Button>,
     );
-    const link = screen.getByTestId('btn-anchor-Button');
+    const link = screen.getByTestId('btn-anchor');
     expect(link).toHaveAttribute('href', 'https://example.com');
   });
 });

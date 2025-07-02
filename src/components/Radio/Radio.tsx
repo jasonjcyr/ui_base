@@ -6,9 +6,10 @@ import { ChangeEvent } from 'react';
 
 import clsx from 'clsx';
 
+import { Label } from '@/components/Label';
 import { Typography } from '@/components/Typography';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
-import { appendTestMetaData } from '@/tools';
+import { appendTestMetaData } from '@/tools/testMetaData';
 
 type RadioProps = {
   id: string;
@@ -18,6 +19,7 @@ type RadioProps = {
   checked: boolean;
   disabled?: boolean;
   error?: boolean;
+  required?: boolean;
   helperText?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   testMetaData?: TestMetaData;
@@ -31,37 +33,56 @@ export const Radio = ({
   checked,
   disabled = false,
   error = false,
+  required = false,
   helperText,
   onChange,
   testMetaData,
 }: RadioProps) => {
-  const meta = appendTestMetaData(testMetaData, 'Radio');
+  const showError = Boolean(error);
+  const describedById = showError ? `${id}-error` : helperText ? `${id}-helper` : undefined;
 
   return (
     <div className={styles.wrapper}>
-      <label htmlFor={id} className={clsx(styles.label, { [styles.disabled]: disabled })}>
-        <input
-          type="radio"
-          id={id}
-          name={name}
-          value={value}
-          checked={checked}
-          disabled={disabled}
-          onChange={onChange}
-          className={clsx(styles.input, { [styles.error]: error })}
-          {...meta}
-        />
-        <span className={styles.control} aria-hidden="true" />
-        <Typography as="span" variant="body">
-          {label}
-        </Typography>
-      </label>
-      {helperText && (
+      <Label
+        htmlFor={id}
+        disabled={disabled}
+        required={required}
+        error={showError}
+        {...testMetaData}
+      >
+        <div className={styles.inputWrapper}>
+          <input
+            type="radio"
+            id={id}
+            name={name}
+            value={value}
+            checked={checked}
+            disabled={disabled}
+            onChange={onChange}
+            aria-invalid={showError || undefined}
+            aria-describedby={describedById}
+            required={required}
+            className={clsx(styles.input, { [styles.error]: showError })}
+            {...appendTestMetaData(testMetaData, 'Radio')}
+          />
+          <span
+            className={clsx(styles.control, { [styles.errorControl]: showError })}
+            aria-hidden="true"
+          />
+          <Typography as="span" variant="body" className={styles.labelText}>
+            {label}
+          </Typography>
+        </div>
+      </Label>
+
+      {(helperText || showError) && (
         <Typography
-          variant="caption"
-          className={clsx(styles.helperText, { [styles.error]: error })}
+          as="p"
+          id={describedById}
+          role={showError ? 'alert' : undefined}
+          variant={showError ? 'error' : 'caption'}
         >
-          {helperText}
+          {showError ? 'This field is required' : helperText}
         </Typography>
       )}
     </div>
