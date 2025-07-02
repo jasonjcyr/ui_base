@@ -1,0 +1,17 @@
+.label {
+  display: inline-block;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  color: var(--text-base);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.required {
+  color: var(--danger-base);
+  margin-left: 0.25rem;
+}
