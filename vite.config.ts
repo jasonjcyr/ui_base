@@ -153,7 +153,22 @@ export default defineConfig({
     ...(isBuild
       ? [
           externalizeDeps({
-            include: ['react', 'react-dom', 'react/jsx-runtime'],
+            include: [
+              'react',
+              'react-dom',
+              'react/jsx-runtime',
+              'clsx',
+              '@fortawesome/free-solid-svg-icons',
+              '@fortawesome/react-fontawesome',
+              'lucide-react',
+              // Externalize Next.js to prevent framework leaks
+              'next',
+              'next/link',
+              'next/router',
+              'next/head',
+              'next/image',
+              'next/script',
+            ],
           }),
         ]
       : []),
@@ -194,15 +209,33 @@ export default defineConfig({
       fileName: (format, name) => `${name}/index.js`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'clsx'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'clsx',
+        '@fortawesome/free-solid-svg-icons',
+        '@fortawesome/react-fontawesome',
+        'lucide-react',
+        // Externalize Next.js dependencies
+        'next',
+        'next/link',
+        'next/router',
+        'next/head',
+        'next/image',
+        'next/script',
+      ],
       output: {
         exports: 'named',
         entryFileNames: '[name]/index.js',
         chunkFileNames: 'shared/[name].js',
-        assetFileNames: (assetInfo) =>
-          assetInfo.name?.endsWith('.css')
-            ? `${assetInfo.name.replace('.css', '')}/index.css`
-            : 'assets/[name][extname]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            const name = assetInfo.name.replace('.css', '');
+            return `${name}/index.css`;
+          }
+          return 'assets/[name][extname]';
+        },
       },
       treeshake: {
         moduleSideEffects: (id) =>
@@ -211,15 +244,16 @@ export default defineConfig({
     },
     outDir: 'dist',
     cssCodeSplit: true,
-    minify: 'esbuild',
-    sourcemap: true,
+    minify: isBuild ? 'esbuild' : false,
     chunkSizeWarningLimit: 500,
   },
 
   css: {
     modules: {
       scopeBehaviour: 'local',
-      generateScopedName: '[name]__[local]___[hash:base64:5]',
+      generateScopedName: isBuild
+        ? '[hash:base64:8]' // Shorter names in production
+        : '[name]__[local]___[hash:base64:5]', // Readable names in development
     },
     preprocessorOptions: {
       scss: {
@@ -243,6 +277,16 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    exclude: isBuild ? ['react', 'react-dom'] : [],
+    exclude: isBuild
+      ? [
+          'react',
+          'react-dom',
+          'clsx',
+          '@fortawesome/free-solid-svg-icons',
+          '@fortawesome/react-fontawesome',
+          'lucide-react',
+          'next',
+        ]
+      : [],
   },
 });
