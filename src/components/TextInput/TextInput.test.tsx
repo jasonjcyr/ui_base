@@ -60,8 +60,8 @@ describe('TextInput', () => {
         testMetaData={{ 'data-testid': 'input-test', 'data-uitest': 'input-ui' }}
       />,
     );
-    expect(container.firstChild).toHaveAttribute('data-testid', 'input-test-TextInput');
-    expect(container.firstChild).toHaveAttribute('data-uitest', 'input-ui-TextInput');
+    expect(container.firstChild).toHaveAttribute('data-testid', 'input-test');
+    expect(container.firstChild).toHaveAttribute('data-uitest', 'input-ui');
   });
 
   it('can be controlled', () => {

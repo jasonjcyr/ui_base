@@ -8,7 +8,7 @@ describe('<Typography />', () => {
       <Typography testMetaData={{ 'data-testid': 'typography-default' }}>Default Text</Typography>,
     );
 
-    const element = screen.getByTestId('typography-default-Typography');
+    const element = screen.getByTestId('typography-default');
     expect(element.tagName).toBe('P');
     expect(element).toHaveTextContent('Default Text');
   });
@@ -20,7 +20,7 @@ describe('<Typography />', () => {
       </Typography>,
     );
 
-    const element = screen.getByTestId('typography-heading-Typography');
+    const element = screen.getByTestId('typography-heading');
     expect(element.tagName).toBe('H2');
     expect(element).toHaveTextContent('Heading Text');
   });
@@ -32,7 +32,7 @@ describe('<Typography />', () => {
       </Typography>,
     );
 
-    const element = screen.getByTestId('typography-span-Typography');
+    const element = screen.getByTestId('typography-span');
     expect(element.tagName).toBe('SPAN');
     expect(element).toHaveTextContent('Span Text');
   });
@@ -44,7 +44,7 @@ describe('<Typography />', () => {
       </Typography>,
     );
 
-    const element = screen.getByTestId('typography-class-Typography');
+    const element = screen.getByTestId('typography-class');
     expect(element).toHaveClass('custom-class');
   });
 });

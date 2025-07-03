@@ -6,48 +6,72 @@ import { TextareaHTMLAttributes, forwardRef } from 'react';
 
 import clsx from 'clsx';
 
+import { Label } from '@/components/Label';
+import { Typography } from '@/components/Typography';
+import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
+import { appendTestMetaData } from '@/tools/testMetaData';
+
 export interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
   id: string;
   label?: string;
   helperText?: string;
-  error?: boolean;
+  error?: string;
   fullWidth?: boolean;
   className?: string;
-  testMetadata?: {
-    'data-testid'?: string;
-    'data-uitest'?: string;
-  };
+  required?: boolean;
+  testMetaData?: TestMetaData;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    { id, label, helperText, error = false, fullWidth = false, className, testMetadata, ...props },
+    {
+      id,
+      label,
+      helperText,
+      error,
+      fullWidth = false,
+      className,
+      required,
+      testMetaData,
+      ...props
+    },
     ref,
   ) => {
+    const hasError = Boolean(error);
+    const describedById = helperText || error ? `${id}-help` : undefined;
+
     return (
       <div
         className={clsx(styles.wrapper, { [styles['full-width']]: fullWidth })}
-        {...testMetadata}
+        {...appendTestMetaData(testMetaData, 'Textarea')}
       >
         {label && (
-          <label htmlFor={id} className={styles.label}>
+          <Label
+            htmlFor={id}
+            required={required}
+            error={hasError}
+            testMetaData={appendTestMetaData(testMetaData, 'Label')}
+          >
             {label}
-          </label>
+          </Label>
         )}
-        <div className={clsx(styles.textareaWrapper, { [styles.error]: error })}>
+
+        <div className={clsx(styles.textareaWrapper, { [styles.error]: hasError })}>
           <textarea
             id={id}
             ref={ref}
             className={clsx(styles.textarea, className)}
-            aria-invalid={error}
-            aria-describedby={helperText ? `${id}-help` : undefined}
+            aria-invalid={hasError}
+            aria-describedby={describedById}
+            required={required}
             {...props}
           />
         </div>
-        {helperText && (
-          <p id={`${id}-help`} className={clsx(styles.helperText, { [styles.errorText]: error })}>
-            {helperText}
-          </p>
+
+        {(helperText || hasError) && (
+          <Typography as="p" id={describedById} variant={hasError ? 'error' : 'caption'}>
+            {hasError ? error : helperText}
+          </Typography>
         )}
       </div>
     );

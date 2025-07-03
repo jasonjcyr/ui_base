@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Typography.module.scss';
 
 import type React from 'react';
@@ -18,7 +20,8 @@ type PredefinedVariant =
   | 'body'
   | 'caption'
   | 'lead'
-  | 'overline';
+  | 'overline'
+  | 'error'; // ✅ added
 
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;

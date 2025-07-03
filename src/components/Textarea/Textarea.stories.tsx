@@ -34,22 +34,6 @@ Textareas are multiline input fields for capturing longer user input such as com
 
 🧬 **Test metadata support**
 Supports \`data-testid\` and \`data-uitest\` attributes for automation and testing.
-
-\`\`\`tsx
-<Textarea
-  id="bio"
-  label="Biography"
-  value={value}
-  onChange={handleChange}
-  placeholder="Tell us about yourself..."
-  helperText="Optional"
-  error={false}
-  testMetadata={{
-    'data-testid': 'bio-textarea',
-    'data-uitest': 'bio-textarea-ui'
-  }}
-/>
-\`\`\`
         `.trim(),
       },
     },
@@ -80,8 +64,7 @@ export const WithHelperText: Story = {
 export const Error: Story = {
   args: {
     ...Default.args,
-    error: true,
-    helperText: 'This field is required.',
+    error: 'This field is required.',
   },
 };
 
