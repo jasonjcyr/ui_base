@@ -2,11 +2,11 @@
 
 import styles from './Typography.module.scss';
 
-import React from 'react';
+import type React from 'react';
 
 import clsx from 'clsx';
 
-import { ValidTextColor } from '@/interfaceCollection/Color.type';
+import { ValidTextColor } from '@/interfaceCollection';
 import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 import { appendTestMetaData } from '@/tools/testMetaData';
 
@@ -26,7 +26,7 @@ type PredefinedVariant =
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;
   variant?: PredefinedVariant;
-  color?: ValidTextColor;
+  color?: ValidTextColor; // Changed to accept any color value
   className?: string;
   children: React.ReactNode;
   testMetaData?: TestMetaData;
@@ -46,20 +46,19 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
 
   const variantClass = styles[`typography-${variant}`];
 
-  let colorClass = '';
-  if (color) {
-    colorClass = `text-${color}`;
-  }
-
-  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && !variantClass) {
-    console.warn(`[Typography] Missing SCSS class for variant: typography-${variant}`);
-  }
+  // Use CSS custom properties for colors instead of generating classes
+  const style = color
+    ? { '--text-color': `var(--color-${color})`, color: 'var(--text-color)' }
+    : undefined;
 
   return (
-    <Component className={clsx(variantClass, colorClass, className)} {...testMetaData} {...rest}>
+    <Component
+      {...appendTestMetaData(testMetaData, 'Typography')}
+      className={clsx(variantClass, className)}
+      style={style}
+      {...rest}
+    >
       {children}
     </Component>
   );
 };
-
-Typography.displayName = 'Typography';

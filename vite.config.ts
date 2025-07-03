@@ -10,6 +10,7 @@ import { externalizeDeps } from 'vite-plugin-externalize-deps';
 const isAnalyze = process.env.ANALYZE === 'true';
 const isBuild = process.env.BUILD === 'true';
 
+// Plugin to inject CSS imports into component files
 function getComponentEntries(): Record<string, string> {
   const baseDir = path.resolve(__dirname, 'src/components');
   const srcDir = path.resolve(__dirname, 'src');
@@ -20,6 +21,7 @@ function getComponentEntries(): Record<string, string> {
     return entries;
   }
 
+  // Add components
   fs.readdirSync(baseDir).forEach((name) => {
     const componentPath = path.join(baseDir, name);
     const indexPath = path.join(componentPath, 'index.ts');
@@ -29,12 +31,21 @@ function getComponentEntries(): Record<string, string> {
     }
   });
 
+  // Add main index
   const mainIndexPath = path.join(srcDir, 'index.ts');
   if (fs.existsSync(mainIndexPath)) {
     entries.index = 'src/index.ts';
     console.log('✅ Found root index.ts');
   }
 
+  // Add styles entry
+  const stylesIndexPath = path.join(srcDir, 'styles', 'index.ts');
+  if (fs.existsSync(stylesIndexPath)) {
+    entries.styles = 'src/styles/index.ts';
+    console.log('✅ Found styles index.ts');
+  }
+
+  // Add utilities
   const utilities = [
     { name: 'interfaceCollection', path: 'src/interfaceCollection/index.ts' },
     { name: 'tools', path: 'src/tools/index.ts' },
@@ -78,7 +89,9 @@ function relocateAndRenameCssPlugin(): Plugin {
           fs.renameSync(srcPath, destPath);
           console.log(`✅ Moved ${file} to ${baseName}/index.css`);
         } else {
-          console.warn(`⚠️ Could not find folder for CSS file: ${file}`);
+          fs.mkdirSync(destDir, { recursive: true });
+          fs.renameSync(srcPath, destPath);
+          console.log(`✅ Created directory and moved ${file} to ${baseName}/index.css`);
         }
       });
     },
@@ -90,13 +103,11 @@ function relocateTypeDefinitionsPlugin(): Plugin {
     name: 'relocate-type-definitions',
     closeBundle() {
       const distDir = path.resolve(__dirname, 'dist');
-      if (!fs.existsSync(distDir)) {
-        console.warn(`⚠️ dist directory does not exist: ${distDir}`);
-        return;
-      }
+      if (!fs.existsSync(distDir)) return;
 
       const indexDtsPath = path.join(distDir, 'index.d.ts');
       const indexDir = path.join(distDir, 'index');
+
       if (fs.existsSync(indexDtsPath)) {
         fs.mkdirSync(indexDir, { recursive: true });
         fs.renameSync(indexDtsPath, path.join(indexDir, 'index.d.ts'));
@@ -136,17 +147,6 @@ function relocateTypeDefinitionsPlugin(): Plugin {
   };
 }
 
-function bundleAnalyzerPlugin(): Plugin {
-  return {
-    name: 'bundle-analyzer',
-    closeBundle() {
-      if (isAnalyze) {
-        console.log('📊 Bundle analysis written to ./bundle-analysis.html');
-      }
-    },
-  };
-}
-
 export default defineConfig({
   plugins: [
     react(),
@@ -161,7 +161,6 @@ export default defineConfig({
               '@fortawesome/free-solid-svg-icons',
               '@fortawesome/react-fontawesome',
               'lucide-react',
-              // Externalize Next.js to prevent framework leaks
               'next',
               'next/link',
               'next/router',
@@ -181,7 +180,7 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/*.test.ts',
         '**/__tests__/**',
-        'src/styles/**/*',
+        'src/styles/**/*.scss',
       ],
       insertTypesEntry: true,
       staticImport: true,
@@ -197,11 +196,9 @@ export default defineConfig({
       title: 'Talon UI Bundle Analysis',
       projectRoot: __dirname,
     }),
-    bundleAnalyzerPlugin(),
     relocateAndRenameCssPlugin(),
     relocateTypeDefinitionsPlugin(),
   ],
-
   build: {
     lib: {
       entry: getComponentEntries(),
@@ -217,7 +214,6 @@ export default defineConfig({
         '@fortawesome/free-solid-svg-icons',
         '@fortawesome/react-fontawesome',
         'lucide-react',
-        // Externalize Next.js dependencies
         'next',
         'next/link',
         'next/router',
@@ -238,8 +234,9 @@ export default defineConfig({
         },
       },
       treeshake: {
-        moduleSideEffects: (id) =>
-          id.includes('.module.scss') ? false : id.endsWith('.css') || id.endsWith('.scss'),
+        moduleSideEffects: (id) => {
+          return id.endsWith('.css') || id.endsWith('.scss');
+        },
       },
     },
     outDir: 'dist',
@@ -247,13 +244,10 @@ export default defineConfig({
     minify: isBuild ? 'esbuild' : false,
     chunkSizeWarningLimit: 500,
   },
-
   css: {
     modules: {
       scopeBehaviour: 'local',
-      generateScopedName: isBuild
-        ? '[hash:base64:8]' // Shorter names in production
-        : '[name]__[local]___[hash:base64:5]', // Readable names in development
+      generateScopedName: isBuild ? '[hash:base64:8]' : '[name]__[local]___[hash:base64:5]',
     },
     preprocessorOptions: {
       scss: {
@@ -261,7 +255,6 @@ export default defineConfig({
       },
     },
   },
-
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -275,7 +268,6 @@ export default defineConfig({
       '@themes': path.resolve(__dirname, 'src/themes'),
     },
   },
-
   optimizeDeps: {
     exclude: isBuild
       ? [
