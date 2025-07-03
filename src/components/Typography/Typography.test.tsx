@@ -49,8 +49,9 @@ describe('<Typography />', () => {
   });
 });
 
+// Mock the SCSS module to simulate missing class
 jest.mock('./Typography.module.scss', () => ({
-  default: {},
+  default: {}, // forces variantClass to be undefined
 }));
 
 describe('<Typography /> - variantClass missing warning', () => {

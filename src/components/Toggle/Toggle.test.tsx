@@ -12,7 +12,7 @@ describe('<Toggle />', () => {
     );
 
     expect(screen.getByLabelText('Enable feature')).toBeInTheDocument();
-    expect(screen.getByTestId('toggle-test-Toggle')).toBeInTheDocument();
+    expect(screen.getByTestId('toggle-test')).toBeInTheDocument();
     expect(screen.getByTestId('toggle-test-Label')).toBeInTheDocument();
   });
 
@@ -36,12 +36,12 @@ describe('<Toggle />', () => {
         id="toggle-error"
         label="With error"
         error="This is an error"
-        testMetaData={{ 'data-testid': 'toggle-error' }}
+        testMetaData={{ 'data-testid': 'toggle' }}
       />,
     );
 
     expect(screen.getByText('This is an error')).toBeInTheDocument();
-    expect(screen.getByTestId('toggle-error-Error')).toBeInTheDocument();
+    expect(screen.getByTestId('toggle-Error')).toBeInTheDocument();
   });
 
   it('triggers onChange when toggled', () => {

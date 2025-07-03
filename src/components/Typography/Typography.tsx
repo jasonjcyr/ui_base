@@ -21,12 +21,12 @@ type PredefinedVariant =
   | 'caption'
   | 'lead'
   | 'overline'
-  | 'error'; // ✅ added
+  | 'error';
 
 type TypographyProps<Tag extends React.ElementType = 'p'> = {
   as?: Tag;
   variant?: PredefinedVariant;
-  color?: ValidTextColor; // Changed to accept any color value
+  color?: ValidTextColor;
   className?: string;
   children: React.ReactNode;
   testMetaData?: TestMetaData;
@@ -46,18 +46,16 @@ export const Typography = <Tag extends React.ElementType = 'p'>({
 
   const variantClass = styles[`typography-${variant}`];
 
-  // Use CSS custom properties for colors instead of generating classes
+  if (process.env.NODE_ENV === 'development' && !variantClass) {
+    console.warn(`[Typography] Missing SCSS class for variant: typography-${variant}`);
+  }
+
   const style = color
     ? { '--text-color': `var(--color-${color})`, color: 'var(--text-color)' }
     : undefined;
 
   return (
-    <Component
-      {...appendTestMetaData(testMetaData, 'Typography')}
-      className={clsx(variantClass, className)}
-      style={style}
-      {...rest}
-    >
+    <Component {...testMetaData} className={clsx(variantClass, className)} style={style} {...rest}>
       {children}
     </Component>
   );

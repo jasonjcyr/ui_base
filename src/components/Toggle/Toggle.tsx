@@ -29,7 +29,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     return (
       <div
         className={clsx(styles.wrapper, { [styles['full-width']]: fullWidth })}
-        {...appendTestMetaData(testMetaData, 'Toggle')}
+        {...testMetaData}
       >
         <div className={styles.header}>
           <label htmlFor={id} className={styles.switch}>
