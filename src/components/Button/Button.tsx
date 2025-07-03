@@ -14,7 +14,7 @@ import { appendTestMetaData } from '@/tools';
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'xl' | 'lg' | 'md' | 'sm';
 
-type ButtonProps = {
+export type ButtonProps = {
   children: ReactNode;
   variant?: Variant;
   size?: Size;
