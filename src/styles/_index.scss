@@ -2,6 +2,7 @@
 @forward './tokens/light-colors';
 @forward './tokens/spacing';
 @forward './tokens/typography';
+@forward './tokens/theme-vars';
 
-@forward './mixins/mixins';
+@forward './mixins/mixins' show generate-theme;
 @forward './mixins/theme.scss' show apply-theme;

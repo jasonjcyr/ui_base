@@ -1,0 +1,22 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  color: var(--text-base);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--danger-base);
+}
+
+.required {
+  color: var(--danger-base);
+  margin-left: 0.25rem;
+}

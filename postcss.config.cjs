@@ -2,7 +2,7 @@ module.exports = {
   plugins: {
     'postcss-import': {},
     'postcss-preset-env': {
-      stage: 3,
+      stage: 1,
       features: {
         'custom-media-queries': true,
       },

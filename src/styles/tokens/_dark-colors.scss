@@ -256,6 +256,37 @@ $colors-dark: (
   ),
 );
 
+$semantic-colors-dark: (
+  primary: (
+    base: map.get(map.get($colors-dark, blue), 500),
+    hover: map.get(map.get($colors-dark, blue), 600),
+  ),
+  secondary: (
+    base: map.get(map.get($colors-dark, purple), 500),
+    hover: map.get(map.get($colors-dark, purple), 600),
+  ),
+  danger: (
+    base: map.get(map.get($colors-dark, red), 500),
+    hover: map.get(map.get($colors-dark, red), 600),
+  ),
+  destructive: (
+    base: map.get(map.get($colors-dark, red), 700),
+    hover: map.get(map.get($colors-dark, red), 800),
+  ),
+  ghost: (
+    hover: rgba(255, 255, 255, 0.05),
+  ),
+  buttonText: (
+    base: #ffffff,
+  ),
+  border: (
+    base: map.get(map.get($colors-dark, gray), 200),
+  ),
+  text: (
+    base: map.get(map.get($colors-dark, gray), 900),
+  ),
+);
+
 // Theme map
 $dark-theme: (
   primary: map.get(map.get($colors-dark, blue), 500),

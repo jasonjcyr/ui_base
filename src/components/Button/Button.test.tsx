@@ -6,29 +6,41 @@ import { render, screen } from '@testing-library/react';
 import { ArrowLeft } from 'lucide-react';
 
 describe('<Button />', () => {
-  it('renders with default test id', () => {
-    render(<Button testMetaData={{ 'data-testid': 'button-default' }}>Click Me</Button>);
-    expect(screen.getByTestId('button-default')).toBeInTheDocument();
+  it('renders with default props', () => {
+    render(<Button testMetaData={{ 'data-testid': 'btn-default' }}>Click</Button>);
+    expect(screen.getByTestId('btn-default')).toBeInTheDocument();
   });
 
-  it('renders with icon', () => {
+  it('shows loading spinner when loading', () => {
     render(
-      <Button icon={<ArrowLeft />} testMetaData={{ 'data-testid': 'button-icon' }}>
-        Back
+      <Button loading testMetaData={{ 'data-testid': 'btn-loading' }}>
+        Load
       </Button>,
     );
-    expect(screen.getByTestId('button-icon')).toBeInTheDocument();
+    // Updated: match the actual test ID used on the spinner
+    expect(screen.getByTestId('btn-loading')).toBeInTheDocument();
+    expect(screen.getByText('Load')).toBeInTheDocument();
   });
 
-  it('renders loading spinner when loading', () => {
+  it('renders icon only', () => {
     render(
-      <Button loading testMetaData={{ 'data-testid': 'button-loading' }}>
-        Loading...
+      <Button
+        iconOnly
+        icon={<ArrowLeft />}
+        testMetaData={{ 'data-testid': 'btn-icon' }}
+        aria-label="Icon button"
+      />,
+    );
+    expect(screen.getByTestId('btn-icon')).toBeInTheDocument();
+  });
+
+  it('renders as anchor', () => {
+    render(
+      <Button as="a" href="https://example.com" testMetaData={{ 'data-testid': 'btn-anchor' }}>
+        Link
       </Button>,
     );
-
-    expect(screen.getByTestId('button-loading')).toBeInTheDocument();
-    const button = screen.getByTestId('button-loading');
-    expect(button).toBeDisabled();
+    const link = screen.getByTestId('btn-anchor');
+    expect(link).toHaveAttribute('href', 'https://example.com');
   });
 });

@@ -1,31 +1,22 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.8.1",
+  "version": "1.12.1",
   "description": "ui common library",
-  "main": "dist/my-ui-lib.umd.js",
-  "module": "dist/my-ui-lib.es.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "sideEffects": [
-    "*.css",
-    "*.scss"
-  ],
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/my-ui-lib.es.js",
-      "require": "./dist/my-ui-lib.umd.js"
+      "types": "./dist/index/index.d.ts",
+      "import": "./dist/index/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "start": "storybook dev -p 6007 --no-open",
     "prettier:check": "prettier --check \"**/*.{js,ts,tsx,css,json,md}\"",
@@ -35,10 +26,27 @@
     "prettier:ci": "npm run prettier:check && npm run prettier:sass:check",
     "lint": "eslint . --max-warnings=0 --format=stylish",
     "prepare": "chmod +x .husky/pre-commit",
-    "build-dev": " ANALYZE=true vite build",
+    "clean": "rimraf dist .temp bundle-analysis.html",
+    "prebuild": "npm run clean && npm run generate-exports",
     "build": "npm run prettier:ci && vite build",
+    "build:analyze": "ANALYZE=true npm run build && npm run open-analysis",
+    "build-dev": "npm run build:analyze",
+    "build:watch": "vite build --watch",
+    "postbuild": "npm run generate-manifest && npm run verify-build",
     "build-storybook": "storybook build -o storybook-static",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit",
+    "generate-exports": "node scripts/generate-exports.js",
+    "generate-manifest": "node scripts/generate-manifest.js",
+    "verify-build": "node scripts/verify-build.js",
+    "scan-components": "node scripts/scan-components.js",
+    "create-component": "node scripts/create-component.js",
+    "debug-dts": "node scripts/debug-dts.js",
+    "analyze": "npm run build:analyze",
+    "open-analysis": "node scripts/open-analysis.js",
+    "prepublishOnly": "npm run build",
+    "dev": "npm run build:watch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -48,10 +56,26 @@
       "prettier --check"
     ]
   },
-  "type": "module",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "design-system",
+    "ui-components",
+    "typescript",
+    "css-modules",
+    "tree-shaking",
+    "component-library",
+    "talon-ui"
+  ],
+  "author": "ReactNextJSGuru",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactnextjsguru/talon-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reactnextjsguru/talon-ui/issues"
+  },
+  "homepage": "https://github.com/reactnextjsguru/talon-ui#readme",
   "publishConfig": {
     "access": "public"
   },
@@ -73,12 +97,14 @@
     "@types/node": "^22.15.32",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
+    "@types/rollup-plugin-postcss": "^3.1.4",
     "@types/testing-library__jest-dom": "^5.14.9",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@vitejs/plugin-react": "^4.1.0",
     "@vitest/browser": "^3.2.2",
     "@vitest/coverage-v8": "^3.2.2",
+    "@vituum/vite-plugin-postcss": "^1.1.0",
     "autoprefixer": "^10.4.17",
     "cssnano": "^7.0.7",
     "eslint": "^9.28.0",
@@ -89,12 +115,15 @@
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "lint-staged": "^16.1.0",
+    "open": "^10.0.0",
     "playwright": "^1.52.0",
-    "postcss": "^8.4.24",
+    "postcss": "^8.5.6",
     "postcss-import": "^15.1.0",
-    "postcss-preset-env": "^10.2.3",
+    "postcss-preset-env": "^10.2.4",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "rollup-plugin-generate-package-json": "^3.2.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.89.1",
     "storybook": "^9.0.9",
@@ -111,6 +140,8 @@
     "vitest": "^3.2.2"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.522.0"
   },
@@ -120,10 +151,10 @@
   },
   "peerDependenciesMeta": {
     "react": {
-      "optional": true
+      "optional": false
     },
     "react-dom": {
-      "optional": true
+      "optional": false
     }
   }
 }

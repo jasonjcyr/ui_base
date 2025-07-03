@@ -2,15 +2,9 @@
 @use 'sass:math';
 @use '../tokens/dark-colors' as *;
 @use '../tokens/light-colors' as *;
-@use '../mixins/_theme.scss' as theme;
 @use '../tokens/typography' as *;
 
 /// Flexbox utility mixin
-/// Simplifies commonly used flexbox properties into one mixin.
-/// `display: flex` is included by default.
-/// Set properties to `false` to omit them.
-///
-/// Note: This does not cover all flexbox properties (e.g., flex, basis, shrink, etc.)
 @mixin flexbox(
   $includeDisplay: true,
   $direction: false,
@@ -40,71 +34,6 @@
   @include flexbox($justify-content: center, $align-items: center);
 }
 
-/// Base button styles
-@mixin button-base {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 0.5rem;
-  line-height: 1.25;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-/// Button size variants
-@mixin button-size($size) {
-  @if $size == sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-  } @else if $size == md {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-  } @else if $size == lg {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-  } @else if $size == xl {
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-  }
-}
-
-/// Button style variants using color maps
-@mixin button-variant($type, $theme: $light-theme) {
-  $bg: map.get($theme, $type);
-  $hover: if(map.has-key($theme, '#{$type}-hover'), map.get($theme, '#{$type}-hover'), $bg);
-  $text-color: if($type == 'ghost', map.get($theme, 'primary'), map.get($theme, 'buttonText'));
-
-  background-color: $bg;
-  color: $text-color;
-
-  &:hover {
-    background-color: $hover;
-  }
-
-  &:disabled,
-  &.disabled {
-    background-color: map.get($theme, 'border');
-    color: map.get($theme, 'text');
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-}
-
-/// Full width button utility
-@mixin button-full-width {
-  width: 100%;
-}
-
-/// Icon-only button style
-@mixin button-icon-only {
-  @include flexbox($justify-content: center, $align-items: center);
-}
-
 /// Responsive media query helper
 @mixin respond-to($breakpoint) {
   $value: map.get($breakpoint-values, $breakpoint);
@@ -116,30 +45,20 @@
   }
 }
 
-/// Responsive typography utility
-/// Expects maps for font-size and line-height, a font-weight, and available breakpoints
-@mixin typography-variant($font-size-map, $line-height-map, $font-weight, $breakpoints) {
-  font-weight: $font-weight;
-
-  // Base (xs) styles
-  $base-font-size: map.get($font-size-map, xs);
-  $base-line-height: map.get($line-height-map, xs);
-
-  @if $base-font-size and $base-line-height {
-    font-size: $base-font-size;
-    line-height: $base-line-height;
+/// Outputs CSS variables from a color map
+@mixin generate-theme($color-map) {
+  @each $color, $codes in $color-map {
+    @each $code, $value in $codes {
+      --#{"" + $color}-#{$code}: #{$value};
+    }
   }
+}
 
-  // Loop through breakpoints
-  @each $breakpoint in $breakpoints {
-    $font-size: map.get($font-size-map, $breakpoint);
-    $line-height: map.get($line-height-map, $breakpoint);
-
-    @if $font-size and $line-height {
-      @include respond-to($breakpoint) {
-        font-size: $font-size;
-        line-height: $line-height;
-      }
+/// Applies a theme by targeting a selector (e.g., :root or [data-theme='dark'])
+@mixin apply-theme($theme-map, $selector) {
+  #{$selector} {
+    @each $name, $value in $theme-map {
+      --#{$name}-base: #{$value};
     }
   }
 }
