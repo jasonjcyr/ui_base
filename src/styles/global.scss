@@ -6,6 +6,23 @@
 // ==============================
 @include styles.apply-theme(styles.$light-theme, ':root');
 @include styles.apply-theme(styles.$dark-theme, '[data-theme="dark"]');
+:root {
+  // Light theme colors as CSS custom properties
+  @each $color-name, $color-map in styles.$colors-light {
+    @each $shade, $value in $color-map {
+      --color-#{'' + $color-name}-#{$shade}: #{$value};
+    }
+  }
+}
+
+[data-theme='dark'] {
+  // Dark theme colors override the same custom properties
+  @each $color-name, $color-map in styles.$colors-dark {
+    @each $shade, $value in $color-map {
+      --color-#{'' + $color-name}-#{$shade}: #{$value};
+    }
+  }
+}
 
 body {
   background-color: var(--background);
