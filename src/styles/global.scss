@@ -10,7 +10,7 @@
   // Light theme colors as CSS custom properties
   @each $color-name, $color-map in styles.$colors-light {
     @each $shade, $value in $color-map {
-      --color-#{$color-name}-#{$shade}: #{$value};
+      --color-#{'' + $color-name}-#{$shade}: #{$value};
     }
   }
 }
@@ -19,7 +19,7 @@
   // Dark theme colors override the same custom properties
   @each $color-name, $color-map in styles.$colors-dark {
     @each $shade, $value in $color-map {
-      --color-#{$color-name}-#{$shade}: #{$value};
+      --color-#{'' + $color-name}-#{$shade}: #{$value};
     }
   }
 }
