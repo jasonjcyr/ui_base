@@ -37,7 +37,7 @@ type IconOnly = {
   children?: never;
 };
 
-type ButtonProps<C extends ElementType> = BaseProps<C> & (WithChildren | IconOnly);
+export type ButtonProps<C extends ElementType> = BaseProps<C> & (WithChildren | IconOnly);
 
 export const Button = <C extends ElementType = 'button'>({
   as,
