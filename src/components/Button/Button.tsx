@@ -12,7 +12,7 @@ import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'xl' | 'lg' | 'md' | 'sm';
 
-export type BaseProps<C extends ElementType> = {
+type BaseProps<C extends ElementType> = {
   as?: C;
   variant?: Variant;
   size?: Size;
@@ -37,7 +37,7 @@ type IconOnly = {
   children?: never;
 };
 
-type ButtonProps<C extends ElementType> = BaseProps<C> & (WithChildren | IconOnly);
+export type ButtonProps<C extends ElementType> = BaseProps<C> & (WithChildren | IconOnly);
 
 export const Button = <C extends ElementType = 'button'>({
   as,

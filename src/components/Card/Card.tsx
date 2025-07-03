@@ -9,7 +9,7 @@ import { TestMetaData } from '@/interfaceCollection/TestMetaData.interface';
 
 export type CardProps = {
     children: React.ReactNode;
-    callToActions?: ButtonProps[];
+    callToActions?: ButtonProps<'button'>[];
     heading?: React.ReactNode;
     backgroundColor?: string;
     image?:
@@ -43,7 +43,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         )}
         <div className={clsx(styles.title)}><h3>{heading}</h3></div>
         <div>{children}</div>
-        <div>{callToActions?.map(callToAction=><Button {...callToAction}>{callToAction.children}</Button>)}</div>
+        <div>
+          {callToActions?.map((callToAction, idx) =>
+            callToAction.children !== undefined
+              ? <Button key={idx} {...callToAction}>{callToAction.children}</Button>
+              : <Button key={idx} {...callToAction} />
+          )}
+        </div>
       </div>
     )
   }
