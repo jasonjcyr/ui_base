@@ -4,6 +4,7 @@ import { Card } from './Card';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@/components/Button';
+import { Typography } from '@/components/Typography';
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
@@ -71,11 +72,17 @@ export const Default: Story = {
     testMetaData: { 'data-testid': 'default-card' },
     children: (
       <>
-        <Card.Header testMetaData={{ 'data-testid': 'default-card' }}>John Doe</Card.Header>
+        <Card.Header testMetaData={{ 'data-testid': 'default-card' }}>
+          <Typography variant="h4">John Doe</Typography>
+        </Card.Header>
         <Card.Body testMetaData={{ 'data-testid': 'default-card' }}>
-          John is a full-stack developer with 8 years of experience.
+          <Typography variant="body">
+            John is a full-stack developer with 8 years of experience.
+          </Typography>
         </Card.Body>
-        <Card.Footer testMetaData={{ 'data-testid': 'default-card' }}>Footer text</Card.Footer>
+        <Card.Footer testMetaData={{ 'data-testid': 'default-card' }}>
+          <Typography variant="caption">Footer text</Typography>
+        </Card.Footer>
       </>
     ),
   },

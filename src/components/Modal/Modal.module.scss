@@ -1,0 +1,104 @@
+:root {
+  --modal-overlay-bg: rgba(0, 0, 0, 0.6);
+  --modal-bg: #fff;
+  --modal-text: #111;
+  --modal-border-radius: 12px;
+  --modal-padding: 1.5rem;
+  --modal-z-index: 1000;
+}
+
+[data-theme='dark'] {
+  --modal-bg: #1a1a1a;
+  --modal-text: #f1f1f1;
+}
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--modal-z-index);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-in;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--modal-overlay-bg);
+}
+
+.modal {
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
+  border-radius: var(--modal-border-radius);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.25s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  padding: var(--modal-padding);
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body {
+  padding: var(--modal-padding);
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.footer {
+  padding: var(--modal-padding);
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
