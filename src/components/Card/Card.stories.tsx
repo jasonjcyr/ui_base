@@ -4,6 +4,7 @@ import { Card } from './Card';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@/components/Button';
+import { Skeleton } from '@/components/Skeleton';
 import { Typography } from '@/components/Typography';
 
 const meta: Meta<typeof Card> = {
@@ -239,4 +240,20 @@ export const Interactive: Story = {
       },
     },
   },
+};
+
+export const SkeletonExample: Story = {
+  render: () => (
+    <Card label="Loading Card" testMetaData={{ 'data-testid': 'card-loading' }}>
+      <Card.Body>
+        <Skeleton variant="text" width="60%" testMetaData={{ 'data-testid': 'skeleton-title' }} />
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height="80px"
+          testMetaData={{ 'data-testid': 'skeleton-body' }}
+        />
+      </Card.Body>
+    </Card>
+  ),
 };

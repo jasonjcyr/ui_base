@@ -1,3 +1,4 @@
+export * from './Accordion';
 export * from './AutoFitText';
 export * from './Button';
 export * from './Card';
@@ -6,6 +7,7 @@ export * from './Label';
 export * from './Modal';
 export * from './Radio';
 export * from './Select';
+export * from './Skeleton';
 export * from './Tabs';
 export * from './TextInput';
 export * from './Textarea';

@@ -71,6 +71,7 @@ export function Tabs({ children, defaultIndex = 0, testMetaData }: TabsProps) {
         if (isTab(tab)) {
           tabList.push(
             cloneElement(tab, {
+              key: `${idPrefix}-tab-${index}`,
               selected: selectedIndex === index,
               onSelect: () => setSelectedIndex(index),
               id: `${idPrefix}-tab-${index}`,
@@ -86,6 +87,7 @@ export function Tabs({ children, defaultIndex = 0, testMetaData }: TabsProps) {
         if (isTabPanel(panel)) {
           tabPanels.push(
             cloneElement(panel, {
+              key: `${idPrefix}-panel-${index}`,
               selected: selectedIndex === index,
               id: `${idPrefix}-panel-${index}`,
               labelledBy: `${idPrefix}-tab-${index}`,

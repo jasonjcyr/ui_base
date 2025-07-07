@@ -3,7 +3,10 @@
 import { TextInput, TextInputProps } from './TextInput';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Button } from '../Button/Button';
+import { Skeleton } from '../Skeleton/Skeleton';
 
 const meta: Meta<TextInputProps> = {
   title: 'Components/TextInput',
@@ -99,5 +102,78 @@ export const Controlled: Story = {
   args: {
     label: 'Controlled Input',
     placeholder: 'Type here...',
+  },
+};
+
+export const WithSkeleton: Story = {
+  name: 'With Skeleton Loader',
+  render: () => {
+    const [loading, setLoading] = useState(true);
+    const [timer, setTimer] = useState(10);
+
+    // Countdown effect
+    useEffect(() => {
+      if (!loading) return;
+
+      const interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setLoading(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }, [loading]);
+
+    const handleRestart = () => {
+      setTimer(10);
+      setLoading(true);
+    };
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <label htmlFor="loading-input" style={{ display: 'block', marginBottom: '0.25rem' }}>
+          {loading ? `Loading Name (${timer}s)...` : 'Name'}
+        </label>
+
+        {loading ? (
+          <Skeleton
+            variant="rectangular"
+            height="2.5rem"
+            borderRadius="0.375rem"
+            testMetaData={{
+              'data-testid': 'textinput-skeleton',
+              'data-uitest': 'textinput-skeleton',
+            }}
+            style={{ width: '100%' }}
+          />
+        ) : (
+          <TextInput
+            id="loading-input"
+            placeholder="Enter your name"
+            testMetaData={{
+              'data-testid': 'textinput-loaded',
+              'data-uitest': 'textinput-loaded',
+            }}
+          />
+        )}
+
+        <Button onClick={handleRestart} size="sm" variant="secondary" style={{ marginTop: '1rem' }}>
+          Restart Loader
+        </Button>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Simulates a loading input using `Skeleton` with a 10-second countdown and a reset button.',
+      },
+    },
   },
 };

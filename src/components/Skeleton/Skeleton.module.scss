@@ -1,0 +1,56 @@
+/* Skeleton.module.scss */
+@use '../../styles/tokens/dark-colors' as *;
+@use '../../styles/tokens/light-colors' as *;
+
+.skeleton {
+  display: inline-block;
+  background-color: var(--skeleton-bg, #e0e0e0);
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+
+  &.text {
+    height: 1em;
+    width: 100%;
+  }
+
+  &.rectangular {
+    height: 100px;
+    width: 100%;
+  }
+
+  &.circle {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+  }
+
+  &.inline {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

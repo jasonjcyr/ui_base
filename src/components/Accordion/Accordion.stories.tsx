@@ -3,7 +3,10 @@
 import { Accordion } from './Accordion';
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/Button';
+import { Skeleton } from '@/components/Skeleton';
 import { Typography } from '@/components/Typography';
 
 const meta: Meta<typeof Accordion> = {
@@ -189,5 +192,50 @@ export const NoContent: Story = {
         story: 'If no `<Accordion.Content>` is provided, only the trigger is rendered.',
       },
     },
+  },
+};
+
+export const AccordionWithSkeleton: Story = {
+  name: 'Accordion with Skeleton',
+  render: () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const timeout = setTimeout(() => setLoading(false), 2000);
+      return () => clearTimeout(timeout);
+    }, []);
+
+    return (
+      <Accordion testMetaData={{ 'data-testid': 'accordion-skeleton' }}>
+        <Accordion.Item testMetaData={{ 'data-testid': 'accordion-skeleton-item' }}>
+          <Accordion.Trigger testMetaData={{ 'data-testid': 'accordion-skeleton-trigger' }}>
+            {loading ? 'Loading details...' : 'Accordion Loaded Title'}
+          </Accordion.Trigger>
+          <Accordion.Content testMetaData={{ 'data-testid': 'accordion-skeleton-content' }}>
+            {loading ? (
+              <>
+                <Skeleton variant="text" width="60%" />
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height="100px"
+                  style={{ marginTop: '1rem' }}
+                />
+              </>
+            ) : (
+              <>
+                <Typography variant="h6">Product Details</Typography>
+                <Typography variant="body">
+                  This accordion item content was loaded dynamically after a 2-second delay.
+                </Typography>
+                <Button size="sm" variant="secondary" style={{ marginTop: '1rem' }}>
+                  Action Button
+                </Button>
+              </>
+            )}
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
+    );
   },
 };

@@ -1,7 +1,7 @@
 import { TextInput } from './TextInput';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import React from 'react';
+import * as React from 'react';
 
 describe('TextInput', () => {
   it('renders with a label and input', () => {
