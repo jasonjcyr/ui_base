@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 
-import fs from 'fs';
-import path from 'node:path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { type Plugin, defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
