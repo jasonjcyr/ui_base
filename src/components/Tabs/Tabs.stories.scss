@@ -1,0 +1,54 @@
+.tabs-demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: var(--color-background, #fff);
+  border-radius: 1rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+
+  &--dark {
+    background-color: var(--color-background-dark, #121212);
+    color: var(--color-text-inverse, #fff);
+
+    .tabPanel {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    .tabList > * {
+      border-color: #333;
+    }
+  }
+}
+
+.tabPanel {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-panel-bg, #f9f9f9);
+  border: 1px solid var(--color-border, #e0e0e0);
+  min-height: 100px;
+  font-size: 0.95rem;
+}
+
+.tabGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vertical-tabs {
+  display: flex;
+  gap: 1.5rem;
+
+  .tabList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tabPanels {
+    flex: 1;
+  }
+}

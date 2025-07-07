@@ -6,6 +6,7 @@ export * from './Label';
 export * from './Modal';
 export * from './Radio';
 export * from './Select';
+export * from './Tabs';
 export * from './TextInput';
 export * from './Textarea';
 export * from './Toggle';
