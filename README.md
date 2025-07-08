@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://talonui.com" target="_blank"><strong>🌐 Demo Site →</strong></a>
+  <a href="https://talonui.com" target="_blank"><strong>🌐 Talon UI Demo Site →</strong></a>
 </p>
 
 ---
