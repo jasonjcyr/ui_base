@@ -235,7 +235,7 @@ export default defineConfig({
       },
       treeshake: {
         moduleSideEffects: (id) => {
-          return id.endsWith('.css') || id.endsWith('.scss');
+          return id.endsWith('.css') || id.endsWith('.scss') || id.includes('.module.');
         },
       },
     },
