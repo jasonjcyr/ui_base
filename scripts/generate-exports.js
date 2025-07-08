@@ -7,18 +7,15 @@ const __dirname = path.dirname(__filename);
 
 function scanDirectory(dirPath, basePath = '') {
   const items = [];
-
   if (!fs.existsSync(dirPath)) {
     return items;
   }
 
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
-
   for (const entry of entries) {
     if (entry.isDirectory()) {
       const fullPath = path.join(dirPath, entry.name);
       const indexPath = path.join(fullPath, 'index.ts');
-
       if (fs.existsSync(indexPath)) {
         const relativePath = basePath ? `${basePath}/${entry.name}` : entry.name;
         items.push({
@@ -28,13 +25,11 @@ function scanDirectory(dirPath, basePath = '') {
           hasIndex: true,
         });
       }
-
       // Recursively scan subdirectories
       const subItems = scanDirectory(fullPath, basePath ? `${basePath}/${entry.name}` : entry.name);
       items.push(...subItems);
     }
   }
-
   return items;
 }
 
@@ -50,6 +45,9 @@ function generateExports() {
   // Read existing package.json
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
+  // Preserve existing exports or create new object
+  const exports = packageJson.exports || {};
+
   // Scan for components
   const componentsDir = path.join(srcDir, 'components');
   const components = scanDirectory(componentsDir);
@@ -57,6 +55,10 @@ function generateExports() {
   // Check for main index
   const mainIndexPath = path.join(srcDir, 'index.ts');
   const hasMainIndex = fs.existsSync(mainIndexPath);
+
+  // Check for styles index
+  const stylesIndexPath = path.join(srcDir, 'styles', 'index.ts');
+  const hasStylesIndex = fs.existsSync(stylesIndexPath);
 
   // Scan for other exportable directories
   const utilityDirs = [
@@ -72,9 +74,6 @@ function generateExports() {
     { dir: path.join(srcDir, 'themes'), key: './themes', name: 'themes' },
   ];
 
-  // Generate exports object
-  const exports = {};
-
   // Add main export only if index.ts exists
   if (hasMainIndex) {
     exports['.'] = {
@@ -84,6 +83,18 @@ function generateExports() {
     console.log('✅ Main index found - adding root export');
   } else {
     console.warn('⚠️ No main index.ts found - skipping root export');
+  }
+
+  // Add styles export if styles/index.ts exists
+  if (hasStylesIndex) {
+    exports['./styles'] = {
+      import: './dist/styles/index.js',
+      style: './dist/styles/index.css',
+    };
+    exports['./styles/index.css'] = './dist/styles/index.css';
+    console.log('✅ Styles index found - adding styles export');
+  } else {
+    console.log('⚠️ No styles/index.ts found - skipping styles export');
   }
 
   // Add component exports
@@ -109,6 +120,9 @@ function generateExports() {
       console.log(`⚠️ Skipping utility: ${name} (missing index.ts)`);
     }
   });
+
+  // Add wildcard export for direct dist access
+  exports['./dist/*'] = './dist/*';
 
   // Add package.json export
   exports['./package.json'] = './package.json';
@@ -139,6 +153,7 @@ function generateExports() {
     ),
     totalExports: Object.keys(exports).length - 1, // Exclude package.json
     hasMainIndex,
+    hasStylesIndex,
     generatedAt: new Date().toISOString(),
   };
 
