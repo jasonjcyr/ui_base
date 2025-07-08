@@ -1,6 +1,6 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.16.1",
+  "version": "1.17.1",
   "description": "ui common library",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -10,6 +10,10 @@
     ".": {
       "types": "./dist/index/index.d.ts",
       "import": "./dist/index/index.js"
+    },
+    "./styles": {
+      "import": "./dist/styles/index.js",
+      "style": "./dist/styles/index.css"
     },
     "./styles/index.css": "./dist/styles/index.css",
     "./dist/*": "./dist/*"
