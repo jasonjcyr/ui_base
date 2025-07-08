@@ -3,7 +3,12 @@
 </p>
 
 <h1 align="center">@reactnextjsguru/talon-ui</h1>
+
 # 🦅 Talon UI — React Component Library for Next.js 14+ & React 19
+
+[![npm version](https://img.shields.io/npm/v/@reactnextjsguru/talon-ui.svg)](https://www.npmjs.com/package/@reactnextjsguru/talon-ui)
+[![license](https://img.shields.io/npm/l/@reactnextjsguru/talon-ui)](https://github.com/jasonjcyr/ui_base/blob/main/LICENSE)
+[![issues](https://img.shields.io/github/issues/jasonjcyr/ui_base)](https://github.com/jasonjcyr/ui_base/issues)
 
 **@reactnextjsguru/talon-ui** is a fully SSR-ready collection of compound, accessible, and theming-ready React components—purpose-built for the **Next.js App Router** and **React 19**.
 
