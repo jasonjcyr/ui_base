@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "jest.setup.mjs"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "jest.setup.mjs", "scripts/**/*.js"],
   "exclude": ["node_modules", "dist", "build", "storybook-static", "stories/**/*"]
 }
