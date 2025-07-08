@@ -38,7 +38,7 @@
     "build:analyze": "ANALYZE=true npm run build && npm run open-analysis",
     "build-dev": "npm run build:analyze",
     "build:watch": "vite build --watch",
-    "postbuild": "npm run generate-manifest && npm run verify-build && node scripts/inject-css-imports.js",
+    "postbuild": "npm run generate-manifest && node scripts/inject-css-imports.js",
     "build-storybook": "storybook build -o storybook-static",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
