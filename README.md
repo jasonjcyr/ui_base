@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.talonui.com/talon-ui.webp"" width="120" alt="Talon UI Logo" />
+  <img src="https://www.talonui.com/talon-ui.webp" width="120" alt="Talon UI Logo" />
 </p>
 
 <h1 align="center">@reactnextjsguru/talon-ui</h1>
@@ -12,9 +12,11 @@
 
 **@reactnextjsguru/talon-ui** is a fully SSR-ready collection of compound, accessible, and theming-ready React components—purpose-built for the **Next.js App Router** and **React 19**.
 
+> ✅ Supports **Next.js 14+** and **React 19** (including Server Components)
+
 ---
 
-📦 **Install**
+## 📦 Install
 
 ```bash
 npm install @reactnextjsguru/talon-ui
@@ -41,7 +43,7 @@ yarn add @reactnextjsguru/talon-ui
 
 ## 🚀 Getting Started
 
-### 1\. Import a component
+### 1\. Import a Component
 
 ```tsx
 'use client';
@@ -51,6 +53,14 @@ import { Button } from '@reactnextjsguru/talon-ui/Button';
 export default function Example() {
   return <Button variant="primary">Click me</Button>;
 }
+```
+
+### 2\. Import Global Styles
+
+To enable global SCSS tokens, CSS custom properties, and utility classes:
+
+```tsx
+import '@reactnextjsguru/talon-ui/styles/index.css';
 ```
 
 > 💡 Supports global theming via SCSS variables or local component overrides.
@@ -68,6 +78,23 @@ export default function Example() {
 ```
 
 > Explore the full catalog in [Storybook →](https://talonui.com)
+
+---
+
+## 🎨 Customizing Theme
+
+Talon UI uses SCSS variables for theming. You can override these in your app:
+
+```scss
+// styles/_overrides.scss
+$primary-color: #007aff;
+$font-family-base: 'Inter', sans-serif;
+
+@use '@reactnextjsguru/talon-ui/styles' with (
+  $primary-color: $primary-color,
+  $font-family: $font-family-base
+);
+```
 
 ---
 
@@ -100,8 +127,8 @@ npm run test
 talon-ui/
 ├── src/
 │   ├── components/       # React components
-│   ├── styles/           # SCSS variables, mixins
-│   └── index.ts          # Component exports
+│   ├── styles/           # SCSS variables, mixins, global theme
+│   └── index.ts          # Entry exports
 ├── dist/                 # Compiled output
 ├── stories/              # Storybook stories
 ├── tests/                # Unit & integration tests
@@ -111,9 +138,11 @@ talon-ui/
 
 ## 🔧 Configuration
 
+### Using SCSS in Your App
+
 Make sure your app supports SCSS:
 
-### `next.config.js`
+#### `next.config.js`
 
 ```js
 const path = require('path');
@@ -138,13 +167,13 @@ npm install
 npm run dev
 ```
 
-Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+Please see our [CONTRIBUTING.md](https://github.com/jasonjcyr/ui_base/blob/main/CONTRIBUTING.md) for guidelines.
 
 ---
 
 ## 📄 License
 
-[MIT License](./LICENSE) © [@reactnextjsguru](https://github.com/jasonjcyr/ui_base)
+[MIT License](https://github.com/jasonjcyr/ui_base/blob/main/LICENSE) © [@reactnextjsguru](https://github.com/jasonjcyr)
 
 ---
 
