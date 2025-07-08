@@ -1,6 +1,6 @@
 {
   "name": "@reactnextjsguru/talon-ui",
-  "version": "1.19.1",
+  "version": "1.20.1",
   "description": "ui common library",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -15,8 +15,7 @@
       "import": "./dist/styles/index.js",
       "style": "./dist/styles/index.css"
     },
-    "./styles/index.css": "./dist/styles/index.css",
-    "./dist/*": "./dist/*"
+    "./styles/index.css": "./dist/styles/index.css"
   },
   "files": [
     "dist",
@@ -76,12 +75,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactnextjsguru/talon-ui.git"
+    "url": "https://github.com/jasonjcyr/ui_base.git"
   },
   "bugs": {
-    "url": "https://github.com/reactnextjsguru/talon-ui/issues"
+    "url": "https://github.com/jasonjcyr/ui_base/issues"
   },
-  "homepage": "https://github.com/reactnextjsguru/talon-ui#readme",
+  "homepage": "https://github.com/jasonjcyr/ui_base#readme",
   "publishConfig": {
     "access": "public"
   },
