@@ -46,7 +46,7 @@ Use as:
 ---
 
 ⚙️ **Features**
-- Pass \`isOpen\` to initially open an item
+- Pass \`defaultOpen\` to initially open an item
 - Use \`indicatorPosition="left" | "right"\` on \`Accordion.Trigger\`
 - Fully keyboard and screen-reader accessible
 - Supports test metadata
@@ -108,7 +108,7 @@ export const InitiallyOpen: Story = {
   name: 'Initially Open Item',
   render: () => (
     <Accordion testMetaData={{ 'data-testid': 'accordion-open' }}>
-      <Accordion.Item isOpen>
+      <Accordion.Item defaultOpen>
         <Accordion.Trigger>How does billing work?</Accordion.Trigger>
         <Accordion.Content>
           You will be charged monthly unless you cancel your subscription.
@@ -133,20 +133,6 @@ export const IndicatorLeft: Story = {
       description: {
         story: 'Use `indicatorPosition="left"` on `Accordion.Trigger` to move the chevron.',
       },
-      source: {
-        code: `
-<Accordion>
-  <Accordion.Item>
-    <Accordion.Trigger indicatorPosition="left">
-      Support Hours
-    </Accordion.Trigger>
-    <Accordion.Content>
-      We’re open Monday through Friday, 9am to 5pm EST.
-    </Accordion.Content>
-  </Accordion.Item>
-</Accordion>
-        `.trim(),
-      },
     },
   },
 };
@@ -168,13 +154,6 @@ export const CustomContent: Story = {
       </Accordion.Item>
     </Accordion>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Content can contain any React nodes like Typography, Button, or images.',
-      },
-    },
-  },
 };
 
 export const NoContent: Story = {
@@ -186,13 +165,6 @@ export const NoContent: Story = {
       </Accordion.Item>
     </Accordion>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'If no `<Accordion.Content>` is provided, only the trigger is rendered.',
-      },
-    },
-  },
 };
 
 export const AccordionWithSkeleton: Story = {

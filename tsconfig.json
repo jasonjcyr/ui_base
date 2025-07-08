@@ -31,12 +31,5 @@
     "types": ["jest", "@testing-library/jest-dom", "node", "react", "react-dom"]
   },
   "include": ["src", "src/types", "src/components", "src/tools", "src/interfaceCollection"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.stories.tsx",
-    "**/__tests__/**"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "**/__tests__/**"]
 }
